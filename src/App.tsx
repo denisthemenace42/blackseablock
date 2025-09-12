@@ -21,7 +21,7 @@ function App() {
           <div className="mb-8 flex justify-center">
             <div className="relative isometric-container">
               <img 
-                src="/blackseablocklgoo.png" 
+                src="/blackseablock-logo.png" 
                 alt="Black Sea Block Logo" 
                 className="w-80 h-80 md:w-96 md:h-96 object-contain isometric-float"
               />

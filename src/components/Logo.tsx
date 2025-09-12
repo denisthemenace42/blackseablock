@@ -21,7 +21,7 @@ const Logo: React.FC<LogoProps> = ({ size = 'md', className = '', useImage = tru
     return (
       <div className={`${sizeClasses[size]} ${className} relative`}>
         <img 
-          src="/blackseablocklgoo.png" 
+          src="/blackseablock-logo.png" 
           alt="Black Sea Block Logo" 
           className={`w-full h-full object-contain ${glowClass}`}
         />
