@@ -62,18 +62,45 @@
   font-weight: normal !important;
 }
 
-body {
+html, body {
   margin: 0;
+  padding: 0;
   font-family: 'AriBold', 'Courier New', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(135deg, #021651 0%, #13299a 50%, #021651 100%);
+  background-attachment: fixed;
   min-height: 100vh;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  background: linear-gradient(135deg, #021651 0%, #13299a 50%, #021651 100%);
+  background-attachment: fixed;
 }
 
 code {
   font-family: 'AriBold', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Ensure background covers all scrollable areas */
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #021651 0%, #13299a 50%, #021651 100%);
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* Ensure no white space appears anywhere */
+html, body, #root, .App {
+  background: linear-gradient(135deg, #021651 0%, #13299a 50%, #021651 100%);
+  background-attachment: fixed;
 }
 
 /* Custom pixel art styles */

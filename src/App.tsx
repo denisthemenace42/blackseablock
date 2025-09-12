@@ -4,7 +4,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-blue via-sea-blue to-dark-blue water-pattern">
+    <div className="min-h-screen bg-gradient-to-br from-dark-blue via-sea-blue to-dark-blue water-pattern relative">
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
         {/* Background wave animation */}
@@ -34,9 +34,11 @@ function App() {
             From Varna to Web3 — Student Builders Collective
           </p>
           
-          <button className="px-8 py-4 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black font-bold text-lg font-ari pixel-border pixel-button">
-            Join Discord
-          </button>
+          <a href="https://discord.gg/ujpUU9T3Vc" target="_blank" rel="noopener noreferrer">
+            <button className="px-8 py-4 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black font-bold text-lg font-ari pixel-border pixel-button">
+              Join Discord
+            </button>
+          </a>
         </div>
 
         {/* Floating pixel elements */}
@@ -130,9 +132,9 @@ function App() {
                   smart contracts for project verification and community voting.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 bg-neon-cyan/20 text-neon-cyan text-sm font-ari pixel-border isometric-card">React</span>
-                  <span className="px-3 py-1 bg-neon-cyan/20 text-teal-300 text-sm font-ari pixel-border isometric-card">Solidity</span>
-                  <span className="px-3 py-1 bg-neon-cyan/20 text-neon-cyan text-sm font-ari pixel-border isometric-card">Polygon</span>
+                  <span className="px-3 py-1 bg-neon-cyan/20 text-neon-cyan text-sm font-ari pixel-border isometric-card">Solana</span>
+                  <span className="px-3 py-1 bg-neon-cyan/20 text-teal-300 text-sm font-ari pixel-border isometric-card">Rust</span>
+                  <span className="px-3 py-1 bg-neon-cyan/20 text-neon-cyan text-sm font-ari pixel-border isometric-card">Metaplex</span>
                   <span className="px-3 py-1 bg-neon-cyan/20 text-teal-300 text-sm font-ari pixel-border isometric-card">IPFS</span>
                 </div>
               </div>
@@ -169,9 +171,11 @@ function App() {
             Join the first Web3 student collective at TU Varna and help shape the future of blockchain education.
           </p>
           
-          <button className="px-12 py-6 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black font-bold text-xl font-ari pixel-border pixel-button mb-8">
-            Join the Discord
-          </button>
+          <a href="https://discord.gg/ujpUU9T3Vc" target="_blank" rel="noopener noreferrer">
+            <button className="px-12 py-6 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black font-bold text-xl font-ari pixel-border pixel-button mb-8">
+              Join the Discord
+            </button>
+          </a>
           
           {/* QR Code placeholder */}
           <div className="mt-12">
@@ -199,10 +203,7 @@ function App() {
             </div>
             
             <div className="flex space-x-6 mb-6 md:mb-0">
-              <a href="https://discord.gg/blackseablock" className="text-neon-cyan hover:text-neon-cyan transition-colors font-ari">Discord</a>
-              <a href="https://t.me/blackseablock" className="text-neon-cyan hover:text-neon-cyan transition-colors font-ari">Telegram</a>
-              <a href="https://twitter.com/blackseablock" className="text-neon-cyan hover:text-neon-cyan transition-colors font-ari">Twitter</a>
-              <a href="mailto:contact@blackseablock.com" className="text-neon-cyan hover:text-neon-cyan transition-colors font-ari">Email</a>
+              <a href="https://discord.gg/ujpUU9T3Vc" target="_blank" rel="noopener noreferrer" className="text-neon-cyan hover:text-neon-cyan transition-colors font-ari">Discord</a>
             </div>
           </div>
           
