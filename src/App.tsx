@@ -128,7 +128,7 @@ function App() {
                 </h3>
                 <p className="text-gray-300 font-ari mb-6">
                   A decentralized platform where TU Varna students can showcase their Web3 projects, 
-                  connect with peers, and discover collaboration opportunities. Built on Polygon with 
+                  connect with peers, and discover collaboration opportunities. Built on Solana with 
                   smart contracts for project verification and community voting.
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -176,17 +176,8 @@ function App() {
               Join the Discord
             </button>
           </a>
+      
           
-          {/* QR Code placeholder */}
-          <div className="mt-12">
-            <div className="w-32 h-32 bg-white mx-auto pixel-border flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-2xl mb-2">📱</div>
-                <p className="text-xs font-ari text-black">QR Code</p>
-                <p className="text-xs font-ari text-gray-600">Coming Soon</p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -209,7 +200,7 @@ function App() {
           
           <div className="border-t border-neon-cyan/30 mt-8 pt-8 text-center">
             <p className="text-gray-400 font-ari text-sm">
-              © 2024 Black Sea Block. Built by students, for students.
+              © 2025 Black Sea Block. Built by students, for students.
             </p>
           </div>
         </div>
