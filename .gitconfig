@@ -1,0 +1,13 @@
+[push]
+    default = simple
+    autoSetupRemote = true
+
+[init]
+    defaultBranch = main
+
+[core]
+    autocrlf = input
+
+[user]
+    name = "BlackSeaBlock Developer"
+    email = "developer@blackseablock.com"
