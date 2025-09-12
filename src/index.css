@@ -1,13 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Fonts */
+@font-face {
+  font-family: 'BloxBrk';
+  src: url('./Fonts/BloxBrk-M7Ke.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AriBold';
+  src: url('./Fonts/ari-w9500-bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: '3DIsometricBold';
+  src: url('./Fonts/3DIsometricBold-Yqy68.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: '3DIsometricBlack';
+  src: url('./Fonts/3DIsometricBlack-8O4PB.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '10Pixel';
+  src: url('./Fonts/10Pixel-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AriCondensedDisplay';
+  src: url('./Fonts/ari-w9500-condensed-display.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BinaryWaters';
+  src: url('./Fonts/BinaryWaters.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Force BinaryWaters font for headings */
+.font-binarywaters-force {
+  font-family: 'BinaryWaters', monospace !important;
+  font-weight: normal !important;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'AriBold', 'Courier New', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #021651 0%, #13299a 50%, #021651 100%);
+  min-height: 100vh;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: 'AriBold', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Custom pixel art styles */
+.pixel-border {
+  border: 2px solid #00ffc4;
+  box-shadow: 0 0 10px #00ffc4;
+}
+
+.pixel-text {
+  text-shadow: 2px 2px 0px #0732b2;
+}
+
+.water-pattern {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(0, 255, 196, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(0, 255, 196, 0.1) 0%, transparent 50%),
+    linear-gradient(45deg, rgba(7, 50, 178, 0.1) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(7, 50, 178, 0.1) 25%, transparent 25%);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
 }

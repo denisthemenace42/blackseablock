@@ -1,38 +1,120 @@
+/* Custom App styles for Black Sea Block */
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+/* Isometric animations and styling */
+.isometric-container {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.isometric-float {
+  animation: isometricFloat 4s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+.isometric-shadow {
+  animation: isometricShadow 3s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+@keyframes isometricFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes isometricShadow {
+  0%, 100% {
+    transform: translateX(1px) translateY(1px) scale(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateX(2px) translateY(2px) scale(1.02);
+    opacity: 0.25;
+  }
+}
+
+/* Isometric pixel art utilities */
+.pixel-shadow {
+  box-shadow: 
+    4px 4px 0px #0732b2,
+    8px 8px 0px #13299a;
+}
+
+.pixel-button {
+  transition: all 0.2s ease;
+  transform-style: preserve-3d;
+}
+
+.pixel-button:hover {
+  transform: translate(-2px, -2px) rotateX(5deg) rotateY(-5deg);
+  box-shadow: 
+    6px 6px 0px #0732b2,
+    12px 12px 0px #13299a;
+}
+
+.pixel-button:active {
+  transform: translate(2px, 2px) rotateX(0deg) rotateY(0deg);
+  box-shadow: 
+    2px 2px 0px #0732b2,
+    4px 4px 0px #13299a;
+}
+
+/* Isometric card styling */
+.isometric-card {
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+  transform: rotateX(5deg) rotateY(-5deg);
+}
+
+.isometric-card:hover {
+  transform: rotateX(10deg) rotateY(-10deg) translateY(-5px);
+  box-shadow: 
+    8px 8px 0px #0732b2,
+    16px 16px 0px #13299a;
+}
+
+/* Isometric section styling */
+.isometric-section {
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.isometric-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 0%, rgba(0, 255, 196, 0.1) 50%, transparent 100%);
+  transform: skewY(-2deg);
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .pixel-shadow {
+    box-shadow: 
+      2px 2px 0px #0732b2,
+      4px 4px 0px #13299a;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  
+  .isometric-float {
+    animation-duration: 4s;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .isometric-card {
+    transform: rotateX(2deg) rotateY(-2deg);
+  }
+  
+  .isometric-card:hover {
+    transform: rotateX(5deg) rotateY(-5deg) translateY(-3px);
   }
 }
