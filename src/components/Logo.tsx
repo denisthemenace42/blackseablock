@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import logoImage from '../assets/blackseablock-logo.png';
 
 interface LogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -8,6 +9,9 @@ interface LogoProps {
 }
 
 const Logo: React.FC<LogoProps> = ({ size = 'md', className = '', useImage = true, noGlow = false }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  
   const sizeClasses = {
     sm: 'w-16 h-16',
     md: 'w-24 h-24',
@@ -16,14 +20,29 @@ const Logo: React.FC<LogoProps> = ({ size = 'md', className = '', useImage = tru
   };
 
   // If useImage is true, show the PNG logo with styling
-  if (useImage) {
+  if (useImage && !imageError) {
     const glowClass = noGlow ? '' : 'filter drop-shadow-[0_0_8px_rgba(0,255,255,0.8)] animate-pulse-glow';
     return (
       <div className={`${sizeClasses[size]} ${className} relative`}>
+        {/* Loading placeholder for smaller logos */}
+        {!imageLoaded && (
+          <div className="w-full h-full bg-gradient-to-br from-neon-cyan/10 to-sea-blue/10 rounded animate-pulse flex items-center justify-center">
+            <div className="w-1/2 h-1/2 bg-neon-cyan/20 rounded"></div>
+          </div>
+        )}
+        
         <img 
-          src="/blackseablock-logo.png" 
+          src={logoImage} 
           alt="Black Sea Block Logo" 
-          className={`w-full h-full object-contain ${glowClass}`}
+          className={`w-full h-full object-contain ${glowClass} transition-opacity duration-300 ${
+            imageLoaded ? 'opacity-100' : 'opacity-0 absolute top-0 left-0'
+          }`}
+          onLoad={() => setImageLoaded(true)}
+          onError={() => {
+            setImageError(true);
+            setImageLoaded(false);
+          }}
+          loading="lazy" // Lazy load for smaller instances
         />
       </div>
     );

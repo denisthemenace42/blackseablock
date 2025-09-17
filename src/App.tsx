@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Logo from './components/Logo';
 import './App.css';
+import logoImage from './assets/blackseablock-logo.png';
 
 function App() {
+  const [logoLoaded, setLogoLoaded] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-dark-blue via-sea-blue to-dark-blue water-pattern relative">
       {/* Hero Section */}
@@ -20,11 +23,26 @@ function App() {
           {/* Large logo display */}
           <div className="mb-8 flex justify-center">
             <div className="relative isometric-container">
+              {/* Loading placeholder */}
+              {!logoLoaded && (
+                <div className="w-80 h-80 md:w-96 md:h-96 bg-gradient-to-br from-neon-cyan/20 to-sea-blue/20 rounded-lg animate-pulse flex items-center justify-center">
+                  <div className="text-neon-cyan text-xl font-ari">Loading...</div>
+                </div>
+              )}
+              
+              {/* Main logo */}
               <img 
-                src="/blackseablock-logo.png" 
+                src={logoImage} 
                 alt="Black Sea Block Logo" 
-                className="w-80 h-80 md:w-96 md:h-96 object-contain isometric-float"
+                className={`w-80 h-80 md:w-96 md:h-96 object-contain isometric-float transition-opacity duration-300 ${
+                  logoLoaded ? 'opacity-100' : 'opacity-0 absolute top-0 left-0'
+                }`}
+                onLoad={() => setLogoLoaded(true)}
+                onError={() => setLogoLoaded(true)} // Show even if there's an error
+                loading="eager" // Load immediately
+                decoding="async" // Decode asynchronously
               />
+              
               {/* Isometric shadow */}
               <div className="absolute inset-0 w-80 h-80 md:w-96 md:h-96 bg-black/20 transform translate-x-2 translate-y-2 -z-10 isometric-shadow"></div>
             </div>
