@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Logo from './components/Logo';
 import './App.css';
 import logoImage from './assets/blackseablock-logo.png';
+import profileImage from './assets/myprofile.png';
+import nftImage from './assets/player1nft.jpg';
 
 function App() {
   const [logoLoaded, setLogoLoaded] = useState(false);
@@ -79,8 +81,8 @@ function App() {
       name: 'DENIS',
       title: 'Founder / Developer / Designer',
       description: 'Computer Science student at TU-Varna. Building the future of Web3 education',
-      profileImage: '/myprofile.png',
-      nftImage: '/Player1NFT.JPG',
+      profileImage: profileImage,
+      nftImage: nftImage,
       nftTitle: 'Play Solana',
       nftSubtitle: '<Player 1> NFT',
       nftDescription: 'My NFT identity in the Solana ecosystem'
