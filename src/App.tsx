@@ -5,71 +5,20 @@ import './App.css';
 import logoImage from './assets/blackseablock-logo.png';
 import profileImage from './assets/myprofile.png';
 import nftImage from './assets/player1nft.jpg';
-import LocomotiveScroll from 'locomotive-scroll';
-import 'locomotive-scroll/dist/locomotive-scroll.css';
 
 function App() {
   const [logoLoaded, setLogoLoaded] = useState(false);
-  const [currentTeamIndex, setCurrentTeamIndex] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const locomotiveScrollRef = useRef<LocomotiveScroll | null>(null);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      locomotiveScrollRef.current = new LocomotiveScroll({
-        el: scrollRef.current,
-        smooth: true,
-        multiplier: 1,
-        class: 'is-revealed',
-        scrollFromAnywhere: false,
-        touchMultiplier: 2,
-        smoothMobile: false,
-        smartphone: {
-          smooth: false,
-          breakpoint: 767
-        },
-        tablet: {
-          smooth: false,
-          breakpoint: 1024
-        }
-      });
-
-      // Update locomotive scroll on window resize
-      const handleResize = () => {
-        if (locomotiveScrollRef.current) {
-          locomotiveScrollRef.current.update();
-        }
-      };
-
-      window.addEventListener('resize', handleResize);
-
-      return () => {
-        window.removeEventListener('resize', handleResize);
-        if (locomotiveScrollRef.current) {
-          locomotiveScrollRef.current.destroy();
-        }
-      };
-    }
-  }, []);
-
-  // Update locomotive scroll after component mounts and images load
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (locomotiveScrollRef.current) {
-        locomotiveScrollRef.current.update();
-      }
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [logoLoaded]);
-
-  // Function to scroll to section using locomotive scroll
+  const [flippedWhyJoinCards, setFlippedWhyJoinCards] = useState<Set<number>>(new Set());
+  const [flippedStepsCards, setFlippedStepsCards] = useState<Set<number>>(new Set());
+  const [flippedProjectCards, setFlippedProjectCards] = useState<Set<number>>(new Set());
+  // Simple smooth scroll function - replaces locomotive scroll
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
-    if (element && locomotiveScrollRef.current) {
-      locomotiveScrollRef.current.scrollTo(element, {
-        duration: 1200,
-        easing: [0.25, 0.0, 0.35, 1.0]
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
       });
     }
   };
@@ -126,51 +75,44 @@ function App() {
   ];
 
 
-  // Team carousel data
-  const teamMembers = [
-    {
-      id: 'founder',
-      type: 'founder',
-      name: 'DENIS',
-      title: 'Designer / Founder / Developer ',
-      description: 'Computer Science student \n at TU-Varna. Building the future of Web3 education',
-      profileImage: profileImage,
-      nftImage: nftImage,
-      nftTitle: 'Play Solana',
-      nftSubtitle: '<Player 1> NFT',
-      nftDescription: 'My NFT identity in the Solana ecosystem'
-    },
-    {
-      id: 'placeholder-1',
-      type: 'placeholder',
-      name: 'You Could Be Here',
-      description: 'Join our community and become a core team member'
-    },
-    {
-      id: 'placeholder-2',
-      type: 'placeholder',
-      name: 'You Could Be Here',
-      description: 'Join our community and become a core team member'
-    },
-    {
-      id: 'placeholder-3',
-      type: 'placeholder',
-      name: 'You Could Be Here',
-      description: 'Join our community and become a core team member'
-    }
-  ];
-
-  const nextTeamMember = () => {
-    setCurrentTeamIndex((prev) => (prev + 1) % teamMembers.length);
+  // Toggle functions for flip cards
+  const toggleWhyJoinCard = (index: number) => {
+    setFlippedWhyJoinCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
   };
 
-  const prevTeamMember = () => {
-    setCurrentTeamIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
+  const toggleStepsCard = (index: number) => {
+    setFlippedStepsCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
   };
 
-  const goToTeamMember = (index: number) => {
-    setCurrentTeamIndex(index);
+  const toggleProjectCard = (index: number) => {
+    setFlippedProjectCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
   };
+
+
 
   // Function to render role titles with different colors
   const renderRoleTitle = (title: string) => {
@@ -195,7 +137,7 @@ function App() {
   };
 
   return (
-    <div ref={scrollRef} data-scroll-container className="min-h-screen bg-gradient-to-br from-dark-blue via-sea-blue to-dark-blue water-pattern relative">
+    <div className="min-h-screen bg-gradient-to-br from-dark-blue via-sea-blue to-dark-blue water-pattern relative">
       {/* Navbar */}
       <Navbar scrollToSection={scrollToSection} />
       
@@ -268,12 +210,16 @@ function App() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
             {[
-              { icon: '🚀', title: 'Build Real Projects', desc: 'Turn ideas into working Web3 apps. You’ll create projects that matter, build your portfolio, and leave with real results—not just theory.' },
-              { icon: '🧑‍💻', title: 'Learn by Doing', desc: 'Skip the endless lectures. Gain hands-on experience with blockchain by building, testing, and deploying real applications.' },
-              { icon: '🤝', title: 'Meet Like-Minded Students', desc: 'Join a community of passionate builders. Collaborate, share ideas, and connect with future partners and friends.' }
+              { icon: '🚀', title: 'Build Real Projects', desc: 'Turn ideas into working Web3 apps. You\'ll create projects that matter, build your portfolio, and leave with real results—not just theory.', id: 'build' },
+              { icon: '🧑‍💻', title: 'Learn by Doing', desc: 'Skip the endless lectures. Gain hands-on experience with blockchain by building, testing, and deploying real applications.', id: 'learn' },
+              { icon: '🤝', title: 'Meet Like-Minded Students', desc: 'Join a community of passionate builders. Collaborate, share ideas, and connect with future partners and friends.', id: 'meet' }
             ].map((item, index) => (
-              <div key={index} className="why-join-flip-container">
-                <div className="why-join-flip">
+              <div 
+                key={index} 
+                className="why-join-flip-container"
+                onClick={() => toggleWhyJoinCard(index)}
+              >
+                <div className={`why-join-flip ${flippedWhyJoinCards.has(index) ? 'flipped' : ''}`}>
                   {/* Front - "Why Join?" with Icon */}
                   <div className="why-join-front">
                     <div className="text-5xl mb-4">{item.icon}</div>
@@ -284,12 +230,65 @@ function App() {
                   
                   {/* Back - Title and Description */}
                   <div className="why-join-back">
-                    <h3 className="text-xl font-bold font-ari text-neon-cyan pixel-text mb-4 text-center">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-300 font-ari text-center text-sm leading-relaxed">
-                      {item.desc}
-                    </p>
+                    <div className="mb-4 text-center">
+                      {item.id === 'build' && (
+                        <h3 className="text-xl font-bold font-ari pixel-text drop-shadow-lg">
+                          <span>🛠️</span>
+                          <span className="text-yellow-200">Build</span>
+                          <span className="text-orange-200">Real</span>
+                          <span className="text-white">Projects</span>
+                          <span>🚀</span>
+                        </h3>
+                      )}
+                      {item.id === 'learn' && (
+                        <h3 className="text-xl font-bold font-ari pixel-text drop-shadow-lg">
+                          <span>📚</span>
+                          <span className="text-green-200">Learn</span>
+                          <span className="text-blue-200">by</span>
+                          <span className="text-white">Doing</span>
+                          <span>⚡</span>
+                        </h3>
+                      )}
+                      {item.id === 'meet' && (
+                        <h3 className="text-xl font-bold font-ari pixel-text drop-shadow-lg">
+                          <span>👥</span>
+                          <span className="text-pink-200">Meet</span>
+                          <span className="text-cyan-200">Like-Minded</span>
+                          <span className="text-white">Students</span>
+                          <span>🌟</span>
+                        </h3>
+                      )}
+                    </div>
+                    <div className="text-center text-sm leading-relaxed font-ari drop-shadow-md">
+                      {item.id === 'build' && (
+                        <p>
+                          Turn 💡 <span className="text-yellow-100 font-semibold">ideas</span> into working{' '}
+                          <span className="text-neon-cyan font-semibold">Web3 apps</span>. You'll create{' '}
+                          <span className="text-orange-100 font-semibold">projects that matter</span> 🎯, build your{' '}
+                          <span className="text-green-100 font-semibold">portfolio</span> 📁, and leave with{' '}
+                          <span className="text-red-100 font-semibold">real results</span> ✅—not just theory.
+                        </p>
+                      )}
+                      {item.id === 'learn' && (
+                        <p>
+                          Skip the 🚫 <span className="text-red-100 font-semibold line-through">endless lectures</span>.{' '}
+                          Gain <span className="text-green-100 font-semibold">hands-on experience</span> 🛠️ with{' '}
+                          <span className="text-blue-100 font-semibold">blockchain</span> ⛓️ by{' '}
+                          <span className="text-purple-100 font-semibold">building</span>,{' '}
+                          <span className="text-yellow-100 font-semibold">testing</span> 🧪, and{' '}
+                          <span className="text-cyan-100 font-semibold">deploying</span> 🚀 real applications.
+                        </p>
+                      )}
+                      {item.id === 'meet' && (
+                        <p>
+                          Join a community of <span className="text-pink-100 font-semibold">passionate builders</span> 🔥.{' '}
+                          <span className="text-cyan-100 font-semibold">Collaborate</span> 🤝, share{' '}
+                          <span className="text-yellow-100 font-semibold">ideas</span> 💭, and connect with future{' '}
+                          <span className="text-green-100 font-semibold">partners</span> 🤝 and{' '}
+                          <span className="text-blue-100 font-semibold">friends</span> 👫.
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -307,28 +306,95 @@ function App() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
             {[
-              { step: '1', title: 'Join Discord', desc: 'Connect with the community' },
-              { step: '2', title: 'Pick Role', desc: 'Choose your specialization' },
-              { step: '3', title: 'Join Sprint', desc: 'Jump into active projects' },
-              { step: '4', title: 'Build & Grow', desc: 'Create and learn together' }
+              { step: '1', title: 'Join Discord', desc: 'Connect with the community', id: 'discord', emoji: '💬', actionEmoji: '🚪' },
+              { step: '2', title: 'Pick Role', desc: 'Choose your specialization', id: 'role', emoji: '🎯', actionEmoji: '⚡' },
+              { step: '3', title: 'Join Sprint', desc: 'Jump into active projects', id: 'sprint', emoji: '🏃‍♂️', actionEmoji: '🚀' },
+              { step: '4', title: 'Build & Grow', desc: 'Create and learn together', id: 'build', emoji: '🛠️', actionEmoji: '🌱' }
             ].map((item, index) => (
-              <div key={index} className="steps-flip-container">
-                <div className="steps-flip">
+              <div 
+                key={index} 
+                className="steps-flip-container"
+                onClick={() => toggleStepsCard(index)}
+              >
+                <div className={`steps-flip ${flippedStepsCards.has(index) ? 'flipped' : ''}`}>
                   {/* Front - Step Number */}
                   <div className="steps-front">
-                    <div className="text-6xl font-bold font-ari text-white pixel-text">
+                    <div className="text-4xl mb-2">{item.emoji}</div>
+                    <div className="text-5xl font-bold font-ari text-white pixel-text mb-2">
                       {item.step}
                     </div>
+                    <div className="text-sm font-ari text-purple-200">Step</div>
                   </div>
                   
                   {/* Back - Title and Description */}
                   <div className="steps-back">
-                    <h3 className="text-xl font-bold font-ari text-neon-cyan pixel-text mb-4 text-center">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-300 font-ari text-center text-sm">
-                      {item.desc}
-                    </p>
+                    <div className="mb-4 text-center">
+                      {item.id === 'discord' && (
+                        <h3 className="text-lg font-bold font-ari pixel-text drop-shadow-lg">
+                          <span>💬</span>
+                          <span className="text-blue-200">Join</span>
+                          <span className="text-purple-200">Discord</span>
+                          <span>🚪</span>
+                        </h3>
+                      )}
+                      {item.id === 'role' && (
+                        <h3 className="text-lg font-bold font-ari pixel-text drop-shadow-lg">
+                          <span>🎯</span>
+                          <span className="text-green-200">Pick</span>
+                          <span className="text-blue-200">Role</span>
+                          <span>⚡</span>
+                        </h3>
+                      )}
+                      {item.id === 'sprint' && (
+                        <h3 className="text-lg font-bold font-ari pixel-text drop-shadow-lg">
+                          <span>🏃‍♂️</span>
+                          <span className="text-orange-200">Join</span>
+                          <span className="text-red-200">Sprint</span>
+                          <span>🚀</span>
+                        </h3>
+                      )}
+                      {item.id === 'build' && (
+                        <h3 className="text-lg font-bold font-ari pixel-text drop-shadow-lg">
+                          <span>🛠️</span>
+                          <span className="text-yellow-200">Build</span>
+                          <span className="text-green-200">&</span>
+                          <span className="text-cyan-200">Grow</span>
+                          <span>🌱</span>
+                        </h3>
+                      )}
+                    </div>
+                    <div className="text-center text-xs leading-relaxed font-ari drop-shadow-md">
+                      {item.id === 'discord' && (
+                        <p>
+                          <span className="text-blue-100 font-semibold">Connect</span> with the{' '}
+                          <span className="text-purple-100 font-semibold">community</span> 🌐 and start your{' '}
+                          <span className="text-cyan-100 font-semibold">Web3 journey</span> today!
+                        </p>
+                      )}
+                      {item.id === 'role' && (
+                        <p>
+                          <span className="text-green-100 font-semibold">Choose</span> your{' '}
+                          <span className="text-blue-100 font-semibold">specialization</span> 💼:{' '}
+                          <span className="text-green-100 font-semibold">Developer</span> 💻,{' '}
+                          <span className="text-purple-100 font-semibold">Designer</span> 🎨, or{' '}
+                          <span className="text-blue-100 font-semibold">Marketing</span> 📈!
+                        </p>
+                      )}
+                      {item.id === 'sprint' && (
+                        <p>
+                          <span className="text-orange-100 font-semibold">Jump</span> into{' '}
+                          <span className="text-red-100 font-semibold">active projects</span> 🎯 and{' '}
+                          <span className="text-purple-100 font-semibold">collaborate</span> with other builders!
+                        </p>
+                      )}
+                      {item.id === 'build' && (
+                        <p>
+                          <span className="text-yellow-100 font-semibold">Create</span> amazing things 🎨 and{' '}
+                          <span className="text-green-100 font-semibold">learn</span> together with your{' '}
+                          <span className="text-cyan-100 font-semibold">team</span>! 👥
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -350,10 +416,14 @@ function App() {
           {/* Project Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
             {projectIdeas.map((project, index) => (
-              <div key={project.id} className="project-flip-container">
-                <div className="project-flip">
+              <div 
+                key={project.id} 
+                className="project-flip-container"
+                onClick={() => toggleProjectCard(index)}
+              >
+                <div className={`project-flip ${flippedProjectCards.has(index) ? 'flipped' : ''}`}>
                   {/* Front - Title and Icon */}
-                  <div className="project-front">
+                  <div className={`project-front project-front-${index}`}>
                     <div className="text-6xl mb-6">{project.icon}</div>
                     <h3 className="text-2xl font-bold font-blox text-white pixel-text text-center">
                       {project.title}
@@ -361,18 +431,94 @@ function App() {
                   </div>
                   
                   {/* Back - Description and Tools */}
-                  <div className="project-back">
-                    <h3 className="text-xl font-bold font-blox text-neon-cyan pixel-text mb-4 text-center">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-300 font-ari mb-6 leading-relaxed text-sm text-center">
-                      {project.description}
-                    </p>
+                  <div className={`project-back project-back-${index}`}>
+                    <div className="mb-4 text-center">
+                      {index === 0 && (
+                        <h3 className="text-xl font-bold font-blox pixel-text">
+                          <span className="text-purple-200">NFT</span>{' '}
+                          <span className="text-white">Collection</span> 🎨
+                        </h3>
+                      )}
+                      {index === 1 && (
+                        <h3 className="text-xl font-bold font-blox pixel-text">
+                          <span className="text-blue-200">Trading Card</span>{' '}
+                          <span className="text-white">Game</span> ⚔️
+                        </h3>
+                      )}
+                      {index === 2 && (
+                        <h3 className="text-xl font-bold font-blox pixel-text">
+                          <span className="text-green-200">DAO</span>{' '}
+                          <span className="text-white">Governance</span> 🏛️
+                        </h3>
+                      )}
+                      {index === 3 && (
+                        <h3 className="text-xl font-bold font-blox pixel-text">
+                          <span className="text-orange-200">Tokenomics</span>{' '}
+                          <span className="text-white">Platform</span> 💰
+                        </h3>
+                      )}
+                      {index === 4 && (
+                        <h3 className="text-xl font-bold font-blox pixel-text">
+                          <span className="text-indigo-200">DeFi</span>{' '}
+                          <span className="text-white">Protocol</span> ⚡
+                        </h3>
+                      )}
+                      {index === 5 && (
+                        <h3 className="text-xl font-bold font-blox pixel-text">
+                          <span className="text-teal-200">Web3 Social</span>{' '}
+                          <span className="text-white">Network</span> 🌐
+                        </h3>
+                      )}
+                    </div>
+                    <div className="text-center text-sm leading-relaxed font-ari mb-6">
+                      {index === 0 && (
+                        <p className="text-gray-200">
+                          Create and mint <span className="text-purple-100 font-medium">unique digital art</span> collections with{' '}
+                          <span className="text-white font-medium">smart contract royalties</span> and{' '}
+                          <span className="text-purple-100 font-medium">marketplace integration</span>.
+                        </p>
+                      )}
+                      {index === 1 && (
+                        <p className="text-gray-200">
+                          Build a <span className="text-blue-100 font-medium">blockchain-based</span> trading card game with{' '}
+                          <span className="text-white font-medium">NFT cards</span>, battles, and{' '}
+                          <span className="text-blue-100 font-medium">crypto rewards</span>.
+                        </p>
+                      )}
+                      {index === 2 && (
+                        <p className="text-gray-200">
+                          Develop a <span className="text-green-100 font-medium">decentralized autonomous organization</span> for{' '}
+                          <span className="text-white font-medium">student decision-making</span> and{' '}
+                          <span className="text-green-100 font-medium">fund allocation</span>.
+                        </p>
+                      )}
+                      {index === 3 && (
+                        <p className="text-gray-200">
+                          Design and launch <span className="text-orange-100 font-medium">utility tokens</span> with{' '}
+                          <span className="text-white font-medium">staking</span>, rewards, and{' '}
+                          <span className="text-orange-100 font-medium">governance mechanisms</span>.
+                        </p>
+                      )}
+                      {index === 4 && (
+                        <p className="text-gray-200">
+                          Create <span className="text-indigo-100 font-medium">decentralized finance</span> solutions like{' '}
+                          <span className="text-white font-medium">lending</span>, borrowing, or{' '}
+                          <span className="text-indigo-100 font-medium">yield farming</span> platforms.
+                        </p>
+                      )}
+                      {index === 5 && (
+                        <p className="text-gray-200">
+                          Build a <span className="text-teal-100 font-medium">decentralized social platform</span> where users{' '}
+                          <span className="text-white font-medium">own their data</span> and{' '}
+                          <span className="text-teal-100 font-medium">content</span>.
+                        </p>
+                      )}
+                    </div>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {project.tools.map((tool, toolIndex) => (
                         <span 
                           key={toolIndex} 
-                          className={`px-3 py-1 text-xs font-ari pixel-border isometric-card ${
+                          className={`px-3 py-1 text-xs font-ari pixel-border tool-tag ${
                             toolIndex % 2 === 0 
                               ? 'bg-neon-cyan/20 text-neon-cyan' 
                               : 'bg-teal-300/20 text-teal-300'
@@ -390,7 +536,7 @@ function App() {
         </div>
       </section>
 
-      {/* Meet the Team Carousel Section */}
+      {/* Meet the Team Section */}
       <section id="team" data-scroll-section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold font-binarywaters-force text-white pixel-text text-center" style={{ marginBottom: '1rem' }}>
@@ -400,108 +546,102 @@ function App() {
             The visionaries building the future of Web3 education at TU-Varna
           </p>
           
-          {/* Team Carousel Container */}
-          <div className="relative">
-            {/* Main Carousel */}
-            <div className="overflow-hidden">
-              <div 
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentTeamIndex * 100}%)` }}
-              >
-                {teamMembers.map((member, index) => (
-                  <div key={member.id} className="w-full flex-shrink-0 flex justify-center px-2 sm:px-4 py-6 sm:py-10">
-                    {member.type === 'founder' ? (
-                      /* Founder Card with Flip Animation */
-                      <div className="card-flip-container">
-                        <div className="card-flip">
-                          {/* Front - Profile */}
-                          <div className="card-front">
-                            <img 
-                              src={member.profileImage} 
-                              alt="Denis Profile" 
-                              className="profile-image"
-                            />
-                            <h3 className="text-xl sm:text-2xl font-bold font-ari text-neon-cyan pixel-text mb-1">{member.name}</h3>
-                            <h4 className="text-xs sm:text-sm font-bold font-ari pixel-text mb-3">{renderRoleTitle(member.title || '')}</h4>
-                            <p className="text-xs sm:text-sm text-gray-300 font-ari text-center px-2 whitespace-pre-line">
-                              {member.description}
-                            </p>
-                          </div>
-                          
-                          {/* Back - NFT */}
-                          <div className="card-back">
-                            <img 
-                              src={member.nftImage} 
-                              alt="Denis NFT" 
-                              className="nft-image"
-                            />
-                            <h3 className="text-lg sm:text-xl font-bold font-ari nft-title pixel-text mb-1">{member.nftTitle}</h3>
-                            <h4 className="text-sm sm:text-lg font-bold font-ari nft-subtitle pixel-text mb-3">{member.nftSubtitle}</h4>
-                            <p className="text-xs sm:text-sm text-gray-300 font-ari text-center px-2">
-                              {member.nftDescription}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      /* Placeholder Card */
-                      <div className="card-flip-container">
-                        <div className="placeholder-card rounded-lg flex flex-col justify-center items-center h-full">
-                          <div className="text-4xl sm:text-6xl mb-4 text-white opacity-80 drop-shadow-lg">❓</div>
-                          <h3 className="text-lg sm:text-xl font-bold font-ari text-white pixel-text mb-2 drop-shadow-lg">{member.name}</h3>
-                          <p className="text-xs sm:text-sm text-gray-200 font-ari text-center px-4 whitespace-pre-line drop-shadow-md">
-                            {member.description}
-                          </p>
-                          <div className="mt-6">
-                            <a href="https://discord.gg/ujpUU9T3Vc" target="_blank" rel="noopener noreferrer">
-                              <button className="px-6 py-2 bg-gradient-to-r from-neon-cyan/20 to-neon-cyan/20 text-black font-bold text-sm font-ari pixel-border chrome-button hover:from-neon-cyan/30 hover:to-neon-cyan/30 transition-all duration-200">
-                                Join Us
-                              </button>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    )}
+          {/* Team Grid Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
+            {/* Left Placeholder */}
+            <div className="card-flip-container">
+              <div className="card-flip">
+                {/* Front - Question Mark Only */}
+                <div className="placeholder-front">
+                  <div className="text-6xl sm:text-8xl text-white opacity-90 drop-shadow-lg">❓</div>
+                </div>
+                
+                {/* Back - Join Message */}
+                <div className="placeholder-back">
+                  <h3 className="text-lg sm:text-xl font-bold font-ari pixel-text mb-4 text-center drop-shadow-lg">
+                    <span className="text-neon-cyan">You</span>{' '}
+                    <span className="text-yellow-200">Could</span>{' '}
+                    <span className="text-white">Be</span>{' '}
+                    <span className="text-green-200">Here</span> ✨
+                  </h3>
+                  <p className="text-gray-200 font-ari text-center text-sm mb-6 drop-shadow-md">
+                    <span className="text-cyan-100 font-medium">Join our community</span> and become a{' '}
+                    <span className="text-yellow-100 font-medium">core team member</span>! 🚀
+                  </p>
+                  <div className="mt-4">
+                    <a href="https://discord.gg/ujpUU9T3Vc" target="_blank" rel="noopener noreferrer">
+                      <button className="px-6 py-2 bg-gradient-to-r from-neon-cyan/20 to-neon-cyan/20 text-black font-bold text-sm font-ari pixel-border chrome-button hover:from-neon-cyan/30 hover:to-neon-cyan/30 transition-all duration-200">
+                        Join Us
+                      </button>
+                    </a>
                   </div>
-                ))}
+                </div>
               </div>
             </div>
-            
-            {/* Navigation Arrows - Responsive positioning */}
-            <button 
-              onClick={prevTeamMember}
-              className="nav-arrow chrome-button absolute bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-2 md:p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200 z-20"
-              style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }}
-            >
-              <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            
-            <button 
-              onClick={nextTeamMember}
-              className="nav-arrow chrome-button absolute bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-2 md:p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200 z-20"
-              style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)' }}
-            >
-              <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-          
-          {/* Carousel Dots */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {teamMembers.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToTeamMember(index)}
-                className={`w-3 h-3 transition-all duration-200 ${
-                  currentTeamIndex === index 
-                    ? 'bg-neon-cyan' 
-                    : 'bg-gray-600 hover:bg-gray-400'
-                }`}
-              />
-            ))}
+
+            {/* Center - Founder Card */}
+            <div className="card-flip-container">
+              <div className="card-flip">
+                {/* Front - Profile */}
+                <div className="card-front">
+                  <img 
+                    src={profileImage} 
+                    alt="Denis Profile" 
+                    className="profile-image"
+                  />
+                  <h3 className="text-xl sm:text-2xl font-bold font-ari text-neon-cyan pixel-text mb-1">DENIS</h3>
+                  <h4 className="text-xs sm:text-sm font-bold font-ari pixel-text mb-3">{renderRoleTitle('Designer / Founder / Developer')}</h4>
+                  <p className="text-xs sm:text-sm text-gray-300 font-ari text-center px-2 whitespace-pre-line">
+                    Computer Science student at TU-Varna. Building the future of Web3 education
+                  </p>
+                </div>
+                
+                {/* Back - NFT */}
+                <div className="card-back">
+                  <img 
+                    src={nftImage} 
+                    alt="Denis NFT" 
+                    className="nft-image"
+                  />
+                  <h3 className="text-lg sm:text-xl font-bold font-ari nft-title pixel-text mb-1">Play Solana</h3>
+                  <h4 className="text-sm sm:text-lg font-bold font-ari nft-subtitle pixel-text mb-3">&lt;Player 1&gt; NFT</h4>
+                  <p className="text-xs sm:text-sm text-gray-300 font-ari text-center px-2">
+                    My NFT identity in the Solana ecosystem
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Placeholder */}
+            <div className="card-flip-container">
+              <div className="card-flip">
+                {/* Front - Question Mark Only */}
+                <div className="placeholder-front">
+                  <div className="text-6xl sm:text-8xl text-white opacity-90 drop-shadow-lg">❓</div>
+                </div>
+                
+                {/* Back - Join Message */}
+                <div className="placeholder-back">
+                  <h3 className="text-lg sm:text-xl font-bold font-ari pixel-text mb-4 text-center drop-shadow-lg">
+                    <span className="text-neon-cyan">You</span>{' '}
+                    <span className="text-yellow-200">Could</span>{' '}
+                    <span className="text-white">Be</span>{' '}
+                    <span className="text-green-200">Here</span> ✨
+                  </h3>
+                  <p className="text-gray-200 font-ari text-center text-sm mb-6 drop-shadow-md">
+                    <span className="text-cyan-100 font-medium">Join our community</span> and become a{' '}
+                    <span className="text-yellow-100 font-medium">core team member</span>! 🚀
+                  </p>
+                  <div className="mt-4">
+                    <a href="https://discord.gg/ujpUU9T3Vc" target="_blank" rel="noopener noreferrer">
+                      <button className="px-6 py-2 bg-gradient-to-r from-neon-cyan/20 to-neon-cyan/20 text-black font-bold text-sm font-ari pixel-border chrome-button hover:from-neon-cyan/30 hover:to-neon-cyan/30 transition-all duration-200">
+                        Join Us
+                      </button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

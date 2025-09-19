@@ -1,10 +1,10 @@
-/* Custom App styles for Black Sea Block */
+/* Optimized App styles for Black Sea Block */
 
 .App {
   text-align: center;
 }
 
-/* Isometric animations and styling */
+/* Isometric animations and styling - Performance optimized */
 .isometric-container {
   perspective: 1000px;
   transform-style: preserve-3d;
@@ -13,11 +13,13 @@
 .isometric-float {
   animation: isometricFloat 4s ease-in-out infinite;
   transform-style: preserve-3d;
+  will-change: transform; /* Performance optimization */
 }
 
 .isometric-shadow {
   animation: isometricShadow 3s ease-in-out infinite;
   border-radius: 8px;
+  will-change: transform, opacity; /* Performance optimization */
 }
 
 @keyframes isometricFloat {
@@ -40,15 +42,38 @@
   }
 }
 
-@keyframes chromeShine {
-  0% {
-    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+@keyframes subtleGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
   }
   50% {
-    transform: translateX(100%) translateY(100%) rotate(45deg);
+    opacity: 0.8;
+    transform: scale(1.02);
   }
-  100% {
-    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes borderPulse {
+  0%, 100% {
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 0 20px rgba(0, 255, 196, 0.1);
+  }
+  50% {
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.2),
+      0 0 30px rgba(0, 255, 196, 0.3);
   }
 }
 
@@ -96,6 +121,7 @@
 .pixel-button {
   transition: all 0.2s ease;
   transform-style: preserve-3d;
+  will-change: transform; /* Performance optimization */
 }
 
 .pixel-button:hover {
@@ -123,8 +149,9 @@
     rgba(30, 64, 175, 0.05) 75%, 
     rgba(59, 130, 246, 0.1) 100%);
   border: 1px solid rgba(0, 255, 196, 0.2);
-  transition: all 0.4s ease;
+  transition: all 0.3s ease; /* Reduced from 0.4s for better performance */
   transform-style: preserve-3d;
+  will-change: transform, box-shadow; /* Performance optimization */
 }
 
 .chrome-card::before {
@@ -182,6 +209,7 @@
   border: 2px solid rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
   transform-style: preserve-3d;
+  will-change: transform, box-shadow; /* Performance optimization */
 }
 
 .chrome-button::before {
@@ -249,6 +277,12 @@
     16px 16px 0px #13299a;
 }
 
+/* Tool tags - static version without hover animations */
+.tool-tag {
+  transform-style: preserve-3d;
+  /* No transition or hover effects for static appearance */
+}
+
 /* Isometric section styling */
 .isometric-section {
   transform-style: preserve-3d;
@@ -297,9 +331,10 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Faster transition for better performance */
   transform-style: preserve-3d;
   transform-origin: center center;
+  will-change: transform; /* Performance optimization */
 }
 
 .card-flip-container:hover .card-flip {
@@ -333,15 +368,12 @@
 }
 
 .card-front {
-  background: 
-    linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(147, 197, 253, 0.8) 25%, rgba(59, 130, 246, 0.9) 50%, rgba(30, 64, 175, 0.8) 75%, rgba(59, 130, 246, 0.9) 100%),
-    linear-gradient(45deg, rgba(59, 130, 246, 0.1) 0%, rgba(30, 64, 175, 0.3) 100%);
-  border: 2px solid #3b82f6;
+  background: rgba(30, 41, 59, 0.9);
+  border: 2px solid #475569;
   box-shadow: 
-    inset 0 1px 0 rgba(147, 197, 253, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-    0 4px 8px rgba(0, 0, 0, 0.3),
-    0 0 20px rgba(59, 130, 246, 0.4);
+    0 4px 8px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -349,55 +381,60 @@
 .card-front::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
-  animation: chromeShine 3s ease-in-out infinite;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: inherit;
   pointer-events: none;
 }
 
+/* Pause animation when team card is hovered */
+.card-flip-container:hover .card-front::before {
+  animation-play-state: paused;
+}
+
 .card-back {
-  background: 
-    linear-gradient(135deg, rgba(251, 191, 36, 0.9) 0%, rgba(254, 240, 138, 0.8) 25%, rgba(251, 191, 36, 0.9) 50%, rgba(245, 158, 11, 0.8) 75%, rgba(251, 191, 36, 0.9) 100%),
-    linear-gradient(45deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.3) 100%);
-  border: 2px solid #f59e0b;
+  background: rgba(30, 41, 59, 0.9);
+  border: 2px solid #475569;
   transform: rotateY(180deg);
   box-shadow: 
-    inset 0 1px 0 rgba(254, 240, 138, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-    0 4px 8px rgba(0, 0, 0, 0.3),
-    0 0 20px rgba(251, 191, 36, 0.4);
+    0 4px 8px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
 
 .card-back::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
-  animation: chromeShine 3s ease-in-out infinite;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: inherit;
   pointer-events: none;
+}
+
+/* Pause animation when team card is hovered */
+.card-flip-container:hover .card-back::before {
+  animation-play-state: paused;
 }
 
 .card-flip-container:hover .card-front {
   box-shadow: 
-    inset 0 1px 0 rgba(147, 197, 253, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
     inset 0 -1px 0 rgba(0, 0, 0, 0.3),
-    0 8px 16px rgba(0, 0, 0, 0.4),
-    0 0 30px rgba(59, 130, 246, 0.6);
+    0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
 .card-flip-container:hover .card-back {
   box-shadow: 
-    inset 0 1px 0 rgba(254, 240, 138, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
     inset 0 -1px 0 rgba(0, 0, 0, 0.3),
-    0 8px 16px rgba(0, 0, 0, 0.4),
-    0 0 30px rgba(251, 191, 36, 0.6);
+    0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
 .placeholder-card {
@@ -418,13 +455,110 @@
 .placeholder-card::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
-  animation: chromeShine 4s ease-in-out infinite;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.03), rgba(128, 128, 128, 0.08), rgba(255, 255, 255, 0.03));
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease-in-out infinite;
+  border-radius: inherit;
   pointer-events: none;
+}
+
+/* New placeholder flip card styling */
+.placeholder-front, .placeholder-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  transform-origin: center center;
+}
+
+.placeholder-front {
+  background: 
+    linear-gradient(135deg, rgba(128, 128, 128, 0.9) 0%, rgba(192, 192, 192, 0.8) 25%, rgba(128, 128, 128, 0.9) 50%, rgba(64, 64, 64, 0.8) 75%, rgba(128, 128, 128, 0.9) 100%),
+    linear-gradient(45deg, rgba(128, 128, 128, 0.1) 0%, rgba(64, 64, 64, 0.3) 100%);
+  border: 2px dashed #888;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(128, 128, 128, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.placeholder-back {
+  background: 
+    linear-gradient(135deg, rgba(0, 255, 196, 0.9) 0%, rgba(255, 255, 255, 0.8) 25%, rgba(0, 255, 196, 0.9) 50%, rgba(7, 50, 178, 0.8) 75%, rgba(0, 255, 196, 0.9) 100%),
+    linear-gradient(45deg, rgba(0, 255, 196, 0.1) 0%, rgba(7, 50, 178, 0.3) 100%);
+  border: 2px solid #00ffc4;
+  transform: rotateY(180deg);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 255, 196, 0.4);
+  overflow: hidden;
+}
+
+.placeholder-front::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.03), rgba(128, 128, 128, 0.08), rgba(255, 255, 255, 0.03));
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease-in-out infinite;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.placeholder-back::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(0, 255, 196, 0.15), rgba(255, 255, 255, 0.05));
+  background-size: 200% 200%;
+  animation: gradientShift 5s ease-in-out infinite;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Pause animation when placeholder card is hovered */
+.card-flip-container:hover .placeholder-front::before,
+.card-flip-container:hover .placeholder-back::before {
+  animation-play-state: paused;
+}
+
+/* Enhanced styling for placeholder card text */
+.placeholder-back h3 span {
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 6px currentColor;
+  filter: brightness(1.05);
+}
+
+.placeholder-back p span {
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    0 0 4px currentColor;
+  filter: brightness(1.02);
 }
 
 .placeholder-card:hover {
@@ -445,13 +579,12 @@
   height: 200px;
   border-radius: 15px;
   object-fit: cover;
-  border: 3px solid #3b82f6;
+  border: 3px solid #475569;
   margin-bottom: 20px;
   box-shadow: 
-    inset 0 1px 0 rgba(147, 197, 253, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-    0 4px 8px rgba(0, 0, 0, 0.3),
-    0 0 15px rgba(59, 130, 246, 0.4);
+    0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .nft-image {
@@ -637,12 +770,8 @@
 }
 
 .role-designer {
-  color: #ff0080; /* Hot Pink - High contrast against blue */
-  text-shadow: 
-    0 0 8px rgba(255, 255, 255, 0.9),
-    0 0 16px rgba(255, 0, 128, 0.8),
-    0 0 24px rgba(255, 0, 128, 0.6),
-    0 0 32px rgba(255, 0, 128, 0.4);
+  color: #a855f7; /* Purple */
+  text-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
 }
 
 /* NFT card text styles with swapped colors and glow effects */
@@ -664,6 +793,13 @@
   margin: 0 auto;
   transform-origin: center center;
   position: relative;
+}
+
+/* Show pointer cursor only on mobile/tablet for click interaction */
+@media (max-width: 1024px) {
+  .project-flip-container {
+    cursor: pointer;
+  }
 }
 
 @media (min-width: 640px) {
@@ -690,8 +826,16 @@
   transform-origin: center center;
 }
 
-.project-flip-container:hover .project-flip {
+/* Desktop: hover to flip, Mobile: click to flip */
+.project-flip.flipped {
   transform: rotateY(180deg);
+}
+
+/* Desktop hover effect */
+@media (min-width: 1025px) {
+  .project-flip-container:hover .project-flip {
+    transform: rotateY(180deg);
+  }
 }
 
 .project-front, .project-back {
@@ -711,67 +855,321 @@
   transform-origin: center center;
 }
 
+/* Default project front styling (fallback) */
 .project-front {
-  background: 
-    linear-gradient(135deg, rgba(0, 255, 196, 0.9) 0%, rgba(255, 255, 255, 0.8) 25%, rgba(0, 255, 196, 0.9) 50%, rgba(7, 50, 178, 0.8) 75%, rgba(0, 255, 196, 0.9) 100%),
-    linear-gradient(45deg, rgba(0, 255, 196, 0.1) 0%, rgba(7, 50, 178, 0.3) 100%);
-  border: 2px solid #00ffc4;
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-    0 4px 8px rgba(0, 0, 0, 0.3),
-    0 0 20px rgba(0, 255, 196, 0.4);
   position: relative;
   overflow: hidden;
 }
 
-.project-front::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
-  animation: chromeShine 3s ease-in-out infinite;
-  pointer-events: none;
+/* NFT Collection - Purple/Pink Theme */
+.project-front-0 {
+  background: 
+    linear-gradient(135deg, rgba(168, 85, 247, 0.9) 0%, rgba(196, 181, 253, 0.8) 25%, rgba(168, 85, 247, 0.9) 50%, rgba(124, 58, 237, 0.8) 75%, rgba(168, 85, 247, 0.9) 100%),
+    linear-gradient(45deg, rgba(168, 85, 247, 0.1) 0%, rgba(124, 58, 237, 0.3) 100%);
+  border: 2px solid #a855f7;
+  box-shadow: 
+    inset 0 1px 0 rgba(196, 181, 253, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(168, 85, 247, 0.4);
 }
 
-.project-back {
+/* Trading Card Game - Blue/Cyan Theme */
+.project-front-1 {
   background: 
     linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(147, 197, 253, 0.8) 25%, rgba(59, 130, 246, 0.9) 50%, rgba(30, 64, 175, 0.8) 75%, rgba(59, 130, 246, 0.9) 100%),
     linear-gradient(45deg, rgba(59, 130, 246, 0.1) 0%, rgba(30, 64, 175, 0.3) 100%);
   border: 2px solid #3b82f6;
-  transform: rotateY(180deg);
   box-shadow: 
     inset 0 1px 0 rgba(147, 197, 253, 0.8),
     inset 0 -1px 0 rgba(0, 0, 0, 0.2),
     0 4px 8px rgba(0, 0, 0, 0.3),
     0 0 20px rgba(59, 130, 246, 0.4);
-  overflow: hidden;
 }
 
-.project-back::before {
+/* DAO Governance - Green/Emerald Theme */
+.project-front-2 {
+  background: 
+    linear-gradient(135deg, rgba(34, 197, 94, 0.9) 0%, rgba(134, 239, 172, 0.8) 25%, rgba(34, 197, 94, 0.9) 50%, rgba(22, 163, 74, 0.8) 75%, rgba(34, 197, 94, 0.9) 100%),
+    linear-gradient(45deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.3) 100%);
+  border: 2px solid #22c55e;
+  box-shadow: 
+    inset 0 1px 0 rgba(134, 239, 172, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(34, 197, 94, 0.4);
+}
+
+/* Tokenomics Platform - Orange/Yellow Theme */
+.project-front-3 {
+  background: 
+    linear-gradient(135deg, rgba(245, 158, 11, 0.9) 0%, rgba(251, 191, 36, 0.8) 25%, rgba(245, 158, 11, 0.9) 50%, rgba(217, 119, 6, 0.8) 75%, rgba(245, 158, 11, 0.9) 100%),
+    linear-gradient(45deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.3) 100%);
+  border: 2px solid #f59e0b;
+  box-shadow: 
+    inset 0 1px 0 rgba(251, 191, 36, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+/* DeFi Protocol - Indigo/Purple Theme */
+.project-front-4 {
+  background: 
+    linear-gradient(135deg, rgba(99, 102, 241, 0.9) 0%, rgba(165, 180, 252, 0.8) 25%, rgba(99, 102, 241, 0.9) 50%, rgba(67, 56, 202, 0.8) 75%, rgba(99, 102, 241, 0.9) 100%),
+    linear-gradient(45deg, rgba(99, 102, 241, 0.1) 0%, rgba(67, 56, 202, 0.3) 100%);
+  border: 2px solid #6366f1;
+  box-shadow: 
+    inset 0 1px 0 rgba(165, 180, 252, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Web3 Social Network - Teal/Blue Theme */
+.project-front-5 {
+  background: 
+    linear-gradient(135deg, rgba(20, 184, 166, 0.9) 0%, rgba(153, 246, 228, 0.8) 25%, rgba(20, 184, 166, 0.9) 50%, rgba(13, 148, 136, 0.8) 75%, rgba(20, 184, 166, 0.9) 100%),
+    linear-gradient(45deg, rgba(20, 184, 166, 0.1) 0%, rgba(13, 148, 136, 0.3) 100%);
+  border: 2px solid #14b8a6;
+  box-shadow: 
+    inset 0 1px 0 rgba(153, 246, 228, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(20, 184, 166, 0.4);
+}
+
+/* Unique gradient effects for each project front card */
+.project-front-0::before { /* NFT Collection - Purple */
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
-  animation: chromeShine 3s ease-in-out infinite;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(168, 85, 247, 0.15), rgba(255, 255, 255, 0.05));
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease-in-out infinite;
+  border-radius: inherit;
   pointer-events: none;
 }
 
-.project-flip-container:hover .project-front {
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
-    0 8px 16px rgba(0, 0, 0, 0.4),
-    0 0 30px rgba(0, 255, 196, 0.6);
+.project-front-1::before { /* Trading Card - Blue */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(59, 130, 246, 0.15), rgba(255, 255, 255, 0.05));
+  background-size: 200% 200%;
+  animation: gradientShift 4.2s ease-in-out infinite;
+  border-radius: inherit;
+  pointer-events: none;
 }
 
-.project-flip-container:hover .project-back {
+.project-front-2::before { /* DAO - Green */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(34, 197, 94, 0.15), rgba(255, 255, 255, 0.05));
+  background-size: 200% 200%;
+  animation: gradientShift 4.4s ease-in-out infinite;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.project-front-3::before { /* Tokenomics - Orange */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(245, 158, 11, 0.15), rgba(255, 255, 255, 0.05));
+  background-size: 200% 200%;
+  animation: gradientShift 4.6s ease-in-out infinite;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.project-front-4::before { /* DeFi - Indigo */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(99, 102, 241, 0.15), rgba(255, 255, 255, 0.05));
+  background-size: 200% 200%;
+  animation: gradientShift 4.8s ease-in-out infinite;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.project-front-5::before { /* Web3 Social - Teal */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(20, 184, 166, 0.15), rgba(255, 255, 255, 0.05));
+  background-size: 200% 200%;
+  animation: gradientShift 5s ease-in-out infinite;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Pause animation when card is hovered or flipped */
+.project-flip-container:hover .project-front-0::before,
+.project-flip-container:hover .project-front-1::before,
+.project-flip-container:hover .project-front-2::before,
+.project-flip-container:hover .project-front-3::before,
+.project-flip-container:hover .project-front-4::before,
+.project-flip-container:hover .project-front-5::before,
+.project-flip.flipped .project-front-0::before,
+.project-flip.flipped .project-front-1::before,
+.project-flip.flipped .project-front-2::before,
+.project-flip.flipped .project-front-3::before,
+.project-flip.flipped .project-front-4::before,
+.project-flip.flipped .project-front-5::before {
+  animation-play-state: paused;
+}
+
+/* Default project back styling (fallback) */
+.project-back {
+  transform: rotateY(180deg);
+  overflow: hidden;
+}
+
+/* NFT Collection Back - Dark Purple Theme */
+.project-back-0 {
+  background: 
+    linear-gradient(135deg, rgba(88, 28, 135, 0.9) 0%, rgba(126, 34, 206, 0.8) 25%, rgba(88, 28, 135, 0.9) 50%, rgba(59, 7, 100, 0.8) 75%, rgba(88, 28, 135, 0.9) 100%),
+    linear-gradient(45deg, rgba(88, 28, 135, 0.1) 0%, rgba(59, 7, 100, 0.3) 100%);
+  border: 2px solid #581c87;
+  box-shadow: 
+    inset 0 1px 0 rgba(126, 34, 206, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(88, 28, 135, 0.4);
+}
+
+/* Trading Card Game Back - Dark Blue Theme */
+.project-back-1 {
+  background: 
+    linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(37, 99, 235, 0.8) 25%, rgba(30, 58, 138, 0.9) 50%, rgba(15, 23, 42, 0.8) 75%, rgba(30, 58, 138, 0.9) 100%),
+    linear-gradient(45deg, rgba(30, 58, 138, 0.1) 0%, rgba(15, 23, 42, 0.3) 100%);
+  border: 2px solid #1e3a8a;
+  box-shadow: 
+    inset 0 1px 0 rgba(37, 99, 235, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(30, 58, 138, 0.4);
+}
+
+/* DAO Governance Back - Dark Green Theme */
+.project-back-2 {
+  background: 
+    linear-gradient(135deg, rgba(20, 83, 45, 0.9) 0%, rgba(34, 197, 94, 0.8) 25%, rgba(20, 83, 45, 0.9) 50%, rgba(5, 46, 22, 0.8) 75%, rgba(20, 83, 45, 0.9) 100%),
+    linear-gradient(45deg, rgba(20, 83, 45, 0.1) 0%, rgba(5, 46, 22, 0.3) 100%);
+  border: 2px solid #14532d;
+  box-shadow: 
+    inset 0 1px 0 rgba(34, 197, 94, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(20, 83, 45, 0.4);
+}
+
+/* Tokenomics Platform Back - Dark Orange Theme */
+.project-back-3 {
+  background: 
+    linear-gradient(135deg, rgba(154, 52, 18, 0.9) 0%, rgba(234, 88, 12, 0.8) 25%, rgba(154, 52, 18, 0.9) 50%, rgba(67, 20, 7, 0.8) 75%, rgba(154, 52, 18, 0.9) 100%),
+    linear-gradient(45deg, rgba(154, 52, 18, 0.1) 0%, rgba(67, 20, 7, 0.3) 100%);
+  border: 2px solid #9a3412;
+  box-shadow: 
+    inset 0 1px 0 rgba(234, 88, 12, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(154, 52, 18, 0.4);
+}
+
+/* DeFi Protocol Back - Dark Indigo Theme */
+.project-back-4 {
+  background: 
+    linear-gradient(135deg, rgba(49, 46, 129, 0.9) 0%, rgba(79, 70, 229, 0.8) 25%, rgba(49, 46, 129, 0.9) 50%, rgba(30, 27, 75, 0.8) 75%, rgba(49, 46, 129, 0.9) 100%),
+    linear-gradient(45deg, rgba(49, 46, 129, 0.1) 0%, rgba(30, 27, 75, 0.3) 100%);
+  border: 2px solid #312e81;
+  box-shadow: 
+    inset 0 1px 0 rgba(79, 70, 229, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(49, 46, 129, 0.4);
+}
+
+/* Web3 Social Network Back - Dark Teal Theme */
+.project-back-5 {
+  background: 
+    linear-gradient(135deg, rgba(19, 78, 74, 0.9) 0%, rgba(15, 118, 110, 0.8) 25%, rgba(19, 78, 74, 0.9) 50%, rgba(4, 47, 46, 0.8) 75%, rgba(19, 78, 74, 0.9) 100%),
+    linear-gradient(45deg, rgba(19, 78, 74, 0.1) 0%, rgba(4, 47, 46, 0.3) 100%);
+  border: 2px solid #134e4a;
+  box-shadow: 
+    inset 0 1px 0 rgba(15, 118, 110, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(19, 78, 74, 0.4);
+}
+
+/* Unique gradient effects for each project back card */
+.project-back-0::before,
+.project-back-1::before,
+.project-back-2::before,
+.project-back-3::before,
+.project-back-4::before,
+.project-back-5::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  background-size: 200% 200%;
+  animation: gradientShift 5.5s ease-in-out infinite;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Pause animation when card is hovered or flipped */
+.project-flip-container:hover .project-back-0::before,
+.project-flip-container:hover .project-back-1::before,
+.project-flip-container:hover .project-back-2::before,
+.project-flip-container:hover .project-back-3::before,
+.project-flip-container:hover .project-back-4::before,
+.project-flip-container:hover .project-back-5::before,
+.project-flip.flipped .project-back-0::before,
+.project-flip.flipped .project-back-1::before,
+.project-flip.flipped .project-back-2::before,
+.project-flip.flipped .project-back-3::before,
+.project-flip.flipped .project-back-4::before,
+.project-flip.flipped .project-back-5::before {
+  animation-play-state: paused;
+}
+
+/* Enhanced hover effects for each project front card */
+.project-flip-container:hover .project-front-0 {
+  box-shadow: 
+    inset 0 1px 0 rgba(196, 181, 253, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(168, 85, 247, 0.6);
+}
+
+.project-flip-container:hover .project-front-1 {
   box-shadow: 
     inset 0 1px 0 rgba(147, 197, 253, 0.9),
     inset 0 -1px 0 rgba(0, 0, 0, 0.3),
@@ -779,26 +1177,184 @@
     0 0 30px rgba(59, 130, 246, 0.6);
 }
 
+.project-flip-container:hover .project-front-2 {
+  box-shadow: 
+    inset 0 1px 0 rgba(134, 239, 172, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(34, 197, 94, 0.6);
+}
+
+.project-flip-container:hover .project-front-3 {
+  box-shadow: 
+    inset 0 1px 0 rgba(251, 191, 36, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(245, 158, 11, 0.6);
+}
+
+.project-flip-container:hover .project-front-4 {
+  box-shadow: 
+    inset 0 1px 0 rgba(165, 180, 252, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(99, 102, 241, 0.6);
+}
+
+.project-flip-container:hover .project-front-5 {
+  box-shadow: 
+    inset 0 1px 0 rgba(153, 246, 228, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(20, 184, 166, 0.6);
+}
+
+/* Enhanced hover effects for each project back card */
+.project-flip-container:hover .project-back-0 {
+  box-shadow: 
+    inset 0 1px 0 rgba(126, 34, 206, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(88, 28, 135, 0.6);
+}
+
+.project-flip-container:hover .project-back-1 {
+  box-shadow: 
+    inset 0 1px 0 rgba(37, 99, 235, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(30, 58, 138, 0.6);
+}
+
+.project-flip-container:hover .project-back-2 {
+  box-shadow: 
+    inset 0 1px 0 rgba(34, 197, 94, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(20, 83, 45, 0.6);
+}
+
+.project-flip-container:hover .project-back-3 {
+  box-shadow: 
+    inset 0 1px 0 rgba(234, 88, 12, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(154, 52, 18, 0.6);
+}
+
+.project-flip-container:hover .project-back-4 {
+  box-shadow: 
+    inset 0 1px 0 rgba(79, 70, 229, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(49, 46, 129, 0.6);
+}
+
+.project-flip-container:hover .project-back-5 {
+  box-shadow: 
+    inset 0 1px 0 rgba(15, 118, 110, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(19, 78, 74, 0.6);
+}
+
+/* Professional styling for project card backs */
+.project-back h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+.project-back h3 span {
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 6px currentColor;
+  filter: brightness(1.03);
+}
+
+.project-back p {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.project-back p span {
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    0 0 3px currentColor;
+  filter: brightness(1.02);
+  transition: all 0.2s ease;
+}
+
+.project-back p span:hover {
+  filter: brightness(1.1);
+}
+
 /* Responsive adjustments for project cards */
 @media (max-width: 640px) {
   .project-flip-container {
     width: 260px;
-    height: 300px;
+    height: 320px;
   }
 
   .project-front, .project-back {
     padding: 15px;
+  }
+  
+  .project-back h3 {
+    font-size: 1rem;
+    gap: 0.3rem;
+  }
+  
+  .project-back p {
+    font-size: 0.75rem;
+    line-height: 1.4;
   }
 }
 
 @media (max-width: 480px) {
   .project-flip-container {
     width: 240px;
-    height: 280px;
+    height: 300px;
   }
 
   .project-front, .project-back {
     padding: 12px;
+  }
+  
+  .project-back h3 {
+    font-size: 0.9rem;
+    gap: 0.25rem;
+  }
+  
+  .project-back p {
+    font-size: 0.7rem;
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 360px) {
+  .project-flip-container {
+    width: 220px;
+    height: 280px;
+  }
+
+  .project-front, .project-back {
+    padding: 10px;
+  }
+  
+  .project-back h3 {
+    font-size: 0.85rem;
+    gap: 0.2rem;
+  }
+  
+  .project-back p {
+    font-size: 0.65rem;
+    line-height: 1.25;
   }
 }
 
@@ -810,6 +1366,13 @@
   margin: 0 auto;
   transform-origin: center center;
   position: relative;
+}
+
+/* Show pointer cursor only on mobile/tablet for click interaction */
+@media (max-width: 1024px) {
+  .steps-flip-container {
+    cursor: pointer;
+  }
 }
 
 @media (min-width: 640px) {
@@ -836,8 +1399,16 @@
   transform-origin: center center;
 }
 
-.steps-flip-container:hover .steps-flip {
+/* Desktop: hover to flip, Mobile: click to flip */
+.steps-flip.flipped {
   transform: rotateY(180deg);
+}
+
+/* Desktop hover effect */
+@media (min-width: 1025px) {
+  .steps-flip-container:hover .steps-flip {
+    transform: rotateY(180deg);
+  }
 }
 
 .steps-front, .steps-back {
@@ -874,13 +1445,21 @@
 .steps-front::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
-  animation: chromeShine 3s ease-in-out infinite;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(168, 85, 247, 0.12), rgba(255, 255, 255, 0.05));
+  background-size: 200% 200%;
+  animation: gradientShift 3.5s ease-in-out infinite;
+  border-radius: inherit;
   pointer-events: none;
+}
+
+/* Pause animation when steps card is hovered or flipped */
+.steps-flip-container:hover .steps-front::before,
+.steps-flip.flipped .steps-front::before {
+  animation-play-state: paused;
 }
 
 .steps-back {
@@ -900,13 +1479,141 @@
 .steps-back::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
-  animation: chromeShine 3s ease-in-out infinite;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(34, 197, 94, 0.12), rgba(255, 255, 255, 0.05));
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease-in-out infinite;
+  border-radius: inherit;
   pointer-events: none;
+}
+
+/* Pause animation when steps card is hovered or flipped */
+.steps-flip-container:hover .steps-back::before,
+.steps-flip.flipped .steps-back::before {
+  animation-play-state: paused;
+}
+
+/* Enhanced colorful styling for Steps cards */
+.steps-back h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  line-height: 1.3;
+}
+
+.steps-back h3 span {
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    0 0 6px currentColor;
+  filter: brightness(1.05);
+}
+
+.steps-back p {
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.9);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.steps-back p span {
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.9),
+    0 0 4px currentColor;
+  filter: brightness(1.02);
+  transition: all 0.3s ease;
+}
+
+.steps-back p span:hover {
+  filter: brightness(1.15);
+  transform: scale(1.01);
+}
+
+/* Enhanced front card styling */
+.steps-front {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive adjustments for steps card backs */
+@media (max-width: 640px) {
+  .steps-back h3 {
+    font-size: 0.9rem;
+    gap: 0.3rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .steps-back p {
+    font-size: 0.65rem;
+    line-height: 1.4;
+    padding: 0 0.5rem;
+  }
+  
+  .steps-front {
+    padding: 12px;
+  }
+  
+  .steps-front .text-4xl {
+    font-size: 2.5rem;
+  }
+  
+  .steps-front .text-5xl {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .steps-back h3 {
+    font-size: 0.8rem;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .steps-back p {
+    font-size: 0.6rem;
+    line-height: 1.3;
+    padding: 0 0.25rem;
+  }
+  
+  .steps-front .text-4xl {
+    font-size: 2rem;
+  }
+  
+  .steps-front .text-5xl {
+    font-size: 2.5rem;
+  }
+  
+  .steps-front .text-sm {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .steps-back h3 {
+    font-size: 0.75rem;
+    gap: 0.2rem;
+  }
+  
+  .steps-back p {
+    font-size: 0.55rem;
+    line-height: 1.25;
+  }
+  
+  .steps-front .text-4xl {
+    font-size: 1.8rem;
+  }
+  
+  .steps-front .text-5xl {
+    font-size: 2.2rem;
+  }
 }
 
 .steps-flip-container:hover .steps-front {
@@ -958,6 +1665,13 @@
   position: relative;
 }
 
+/* Show pointer cursor only on mobile/tablet for click interaction */
+@media (max-width: 1024px) {
+  .why-join-flip-container {
+    cursor: pointer;
+  }
+}
+
 @media (min-width: 640px) {
   .why-join-flip-container {
     width: 300px;
@@ -982,8 +1696,16 @@
   transform-origin: center center;
 }
 
-.why-join-flip-container:hover .why-join-flip {
+/* Desktop: hover to flip, Mobile: click to flip */
+.why-join-flip.flipped {
   transform: rotateY(180deg);
+}
+
+/* Desktop hover effect */
+@media (min-width: 1025px) {
+  .why-join-flip-container:hover .why-join-flip {
+    transform: rotateY(180deg);
+  }
 }
 
 .why-join-front, .why-join-back {
@@ -1020,19 +1742,27 @@
 .why-join-front::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
-  animation: chromeShine 3s ease-in-out infinite;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(239, 68, 68, 0.12), rgba(255, 255, 255, 0.05));
+  background-size: 200% 200%;
+  animation: gradientShift 3.8s ease-in-out infinite;
+  border-radius: inherit;
   pointer-events: none;
+}
+
+/* Pause animation when why-join card is hovered or flipped */
+.why-join-flip-container:hover .why-join-front::before,
+.why-join-flip.flipped .why-join-front::before {
+  animation-play-state: paused;
 }
 
 .why-join-back {
   background: 
-    linear-gradient(135deg, rgba(34, 197, 94, 0.9) 0%, rgba(134, 239, 172, 0.8) 25%, rgba(34, 197, 94, 0.9) 50%, rgba(22, 163, 74, 0.8) 75%, rgba(34, 197, 94, 0.9) 100%),
-    linear-gradient(45deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.3) 100%);
+    linear-gradient(135deg, rgba(34, 197, 94, 0.95) 0%, rgba(134, 239, 172, 0.85) 25%, rgba(34, 197, 94, 0.95) 50%, rgba(22, 163, 74, 0.9) 75%, rgba(34, 197, 94, 0.95) 100%),
+    linear-gradient(45deg, rgba(34, 197, 94, 0.2) 0%, rgba(22, 163, 74, 0.4) 100%);
   border: 2px solid #22c55e;
   transform: rotateY(180deg);
   box-shadow: 
@@ -1043,16 +1773,136 @@
   overflow: hidden;
 }
 
+/* Enhanced subtle colorful text styling for Why Join cards */
+.why-join-back h3 span {
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    0 0 8px rgba(0, 0, 0, 0.5),
+    0 0 8px currentColor;
+  filter: brightness(1.05);
+}
+
+.why-join-back p {
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.9);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.why-join-back p span {
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.9),
+    0 0 4px currentColor;
+  filter: brightness(1.02);
+  transition: all 0.3s ease;
+}
+
+.why-join-back p span:hover {
+  filter: brightness(1.15);
+  transform: scale(1.01);
+}
+
+/* Special styling for strikethrough text */
+.why-join-back .line-through {
+  text-decoration-color: #fca5a5;
+  text-decoration-thickness: 2px;
+}
+
+/* Emoji styling for better visibility */
+.why-join-back h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  line-height: 1.3;
+}
+
+/* Responsive adjustments for Why Join card backs */
+@media (max-width: 640px) {
+  .why-join-back h3 {
+    font-size: 1rem;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .why-join-back h3 span {
+    font-size: 0.95rem;
+  }
+  
+  .why-join-back p {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    padding: 0 0.5rem;
+  }
+  
+  .why-join-back {
+    padding: 15px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-join-back h3 {
+    font-size: 0.9rem;
+    gap: 0.2rem;
+    margin-bottom: 0.5rem;
+    flex-direction: row;
+  }
+  
+  .why-join-back h3 span {
+    font-size: 0.85rem;
+  }
+  
+  .why-join-back p {
+    font-size: 0.7rem;
+    line-height: 1.3;
+    padding: 0 0.25rem;
+  }
+  
+  .why-join-back {
+    padding: 12px 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .why-join-back h3 {
+    font-size: 0.85rem;
+    gap: 0.15rem;
+  }
+  
+  .why-join-back h3 span {
+    font-size: 0.8rem;
+  }
+  
+  .why-join-back p {
+    font-size: 0.65rem;
+    line-height: 1.25;
+  }
+  
+  .why-join-back {
+    padding: 10px 8px;
+  }
+}
+
 .why-join-back::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
-  animation: chromeShine 3s ease-in-out infinite;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(34, 197, 94, 0.12), rgba(255, 255, 255, 0.05));
+  background-size: 200% 200%;
+  animation: gradientShift 4.2s ease-in-out infinite;
+  border-radius: inherit;
   pointer-events: none;
+}
+
+/* Pause animation when why-join card is hovered or flipped */
+.why-join-flip-container:hover .why-join-back::before,
+.why-join-flip.flipped .why-join-back::before {
+  animation-play-state: paused;
 }
 
 .why-join-flip-container:hover .why-join-front {
@@ -1075,7 +1925,7 @@
 @media (max-width: 640px) {
   .why-join-flip-container {
     width: 260px;
-    height: 300px;
+    height: 320px;
   }
 
   .why-join-front, .why-join-back {
@@ -1086,10 +1936,50 @@
 @media (max-width: 480px) {
   .why-join-flip-container {
     width: 240px;
-    height: 280px;
+    height: 300px;
   }
 
   .why-join-front, .why-join-back {
     padding: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .why-join-flip-container {
+    width: 220px;
+    height: 280px;
+  }
+
+  .why-join-front, .why-join-back {
+    padding: 10px;
+  }
+}
+
+/* Performance Optimizations */
+.project-flip, .steps-flip, .why-join-flip {
+  will-change: transform;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Hardware acceleration for better performance */
+.isometric-float,
+.chrome-button,
+.card-flip,
+.project-flip,
+.steps-flip,
+.why-join-flip {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .isometric-float,
+  .card-flip,
+  .project-flip,
+  .steps-flip,
+  .why-join-flip {
+    animation: none !important;
+    transition: none !important;
   }
 }
