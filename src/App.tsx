@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Logo from './components/Logo';
+import Navbar from './components/Navbar';
 import './App.css';
 import logoImage from './assets/blackseablock-logo.png';
 import profileImage from './assets/myprofile.png';
@@ -121,8 +122,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-dark-blue via-sea-blue to-dark-blue water-pattern relative">
+      {/* Navbar */}
+      <Navbar />
+      
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
+      <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden pt-16">
         {/* Background wave animation */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-1/4 left-0 w-full h-32 bg-gradient-to-r from-transparent via-neon-cyan to-transparent transform -skew-y-1 animate-wave"></div>
@@ -181,7 +185,7 @@ function App() {
       </section>
 
       {/* About / Mission Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-dark-blue/50 to-sea-blue/50 isometric-section">
+      <section id="mission" className="py-20 px-4 bg-gradient-to-r from-dark-blue/50 to-sea-blue/50 isometric-section">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold font-binarywaters-force text-white pixel-text" style={{ marginBottom: '1rem' }}>
             Our Mission
@@ -194,7 +198,7 @@ function App() {
       </section>
 
       {/* Why Join Section */}
-      <section className="py-20 px-4">
+      <section id="why-join" className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold font-binarywaters-force text-white pixel-text text-center" style={{ marginBottom: '1rem' }}>
             Why Join
@@ -219,7 +223,7 @@ function App() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-sea-blue/30 to-dark-blue/30">
+      <section id="how-it-works" className="py-20 px-4 bg-gradient-to-r from-sea-blue/30 to-dark-blue/30">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold font-binarywaters-force text-white pixel-text text-center" style={{ marginBottom: '1rem' }}>
             How It Works
@@ -245,7 +249,7 @@ function App() {
       </section>
 
       {/* Project Ideas Carousel Section */}
-      <section className="py-20 px-4">
+      <section id="projects" className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold font-binarywaters-force text-white pixel-text text-center" style={{ marginBottom: '1rem' }}>
             Project Ideas
@@ -335,7 +339,7 @@ function App() {
       </section>
 
       {/* Meet the Team Carousel Section */}
-      <section className="py-20 px-4">
+      <section id="team" className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold font-binarywaters-force text-white pixel-text text-center" style={{ marginBottom: '1rem' }}>
             Meet the Team
