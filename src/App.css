@@ -401,8 +401,12 @@
 }
 
 .role-designer {
-  color: #a855f7; /* Purple/Techy */
-  text-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+  color: #ff0080; /* Hot Pink - High contrast against blue */
+  text-shadow: 
+    0 0 8px rgba(255, 255, 255, 0.9),
+    0 0 16px rgba(255, 0, 128, 0.8),
+    0 0 24px rgba(255, 0, 128, 0.6),
+    0 0 32px rgba(255, 0, 128, 0.4);
 }
 
 /* NFT card text styles with swapped colors and glow effects */

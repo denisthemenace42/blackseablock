@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 interface NavbarProps {
   className?: string;
+  scrollToSection?: (sectionId: string) => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
+const Navbar: React.FC<NavbarProps> = ({ className = '', scrollToSection }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -17,10 +18,15 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const handleScrollToSection = (sectionId: string) => {
+    if (scrollToSection) {
+      scrollToSection(sectionId);
+    } else {
+      // Fallback to native smooth scroll if locomotive scroll isn't available
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -37,7 +43,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
     if (item.isExternal && item.id === 'discord') {
       window.open('https://discord.gg/ujpUU9T3Vc', '_blank', 'noopener,noreferrer');
     } else {
-      scrollToSection(item.id);
+      handleScrollToSection(item.id);
     }
     // Close mobile menu after clicking
     setIsMobileMenuOpen(false);
@@ -50,8 +56,8 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-dark-blue/95 backdrop-blur-sm border-b border-neon-cyan/20' 
-        : 'bg-transparent'
+        ? 'bg-dark-blue/90 backdrop-blur-md border-b border-neon-cyan/30' 
+        : 'bg-dark-blue/60 backdrop-blur-lg'
     } ${className}`}>
       <div className="max-w-6xl mx-auto px-4 py-3">
         {/* Desktop Navigation */}
@@ -94,7 +100,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = '' }) => {
 
           {/* Mobile Menu Overlay */}
           {isMobileMenuOpen && (
-            <div className="absolute top-full left-0 right-0 bg-dark-blue/98 backdrop-blur-sm border-b border-neon-cyan/20 shadow-lg">
+            <div className="absolute top-full left-0 right-0 bg-dark-blue/95 backdrop-blur-xl border-b border-neon-cyan/30 shadow-lg">
               <div className="px-4 py-4 space-y-3">
                 {navItems.map((item, index) => (
                   <button

@@ -1,15 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Logo from './components/Logo';
 import Navbar from './components/Navbar';
 import './App.css';
 import logoImage from './assets/blackseablock-logo.png';
 import profileImage from './assets/myprofile.png';
 import nftImage from './assets/player1nft.jpg';
+import LocomotiveScroll from 'locomotive-scroll';
+import 'locomotive-scroll/dist/locomotive-scroll.css';
 
 function App() {
   const [logoLoaded, setLogoLoaded] = useState(false);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [currentTeamIndex, setCurrentTeamIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const locomotiveScrollRef = useRef<LocomotiveScroll | null>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      locomotiveScrollRef.current = new LocomotiveScroll({
+        el: scrollRef.current,
+        smooth: true,
+        multiplier: 1,
+        class: 'is-revealed',
+        scrollFromAnywhere: false,
+        touchMultiplier: 2,
+        smoothMobile: true,
+        smartphone: {
+          smooth: true,
+          breakpoint: 767
+        },
+        tablet: {
+          smooth: true,
+          breakpoint: 1024
+        }
+      });
+
+      // Update locomotive scroll on window resize
+      const handleResize = () => {
+        if (locomotiveScrollRef.current) {
+          locomotiveScrollRef.current.update();
+        }
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        if (locomotiveScrollRef.current) {
+          locomotiveScrollRef.current.destroy();
+        }
+      };
+    }
+  }, []);
+
+  // Update locomotive scroll after component mounts and images load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (locomotiveScrollRef.current) {
+        locomotiveScrollRef.current.update();
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [logoLoaded]);
+
+  // Function to scroll to section using locomotive scroll
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element && locomotiveScrollRef.current) {
+      locomotiveScrollRef.current.scrollTo(element, {
+        duration: 1200,
+        easing: [0.25, 0.0, 0.35, 1.0]
+      });
+    }
+  };
 
   const projectIdeas = [
     {
@@ -80,8 +144,8 @@ function App() {
       id: 'founder',
       type: 'founder',
       name: 'DENIS',
-      title: '< Developer / Founder / Designer >',
-      description: 'Computer Science student at TU-Varna. Building the future of Web3 education',
+      title: 'Designer / Founder / Developer ',
+      description: 'Computer Science student \n at TU-Varna. Building the future of Web3 education',
       profileImage: profileImage,
       nftImage: nftImage,
       nftTitle: 'Play Solana',
@@ -143,12 +207,12 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-blue via-sea-blue to-dark-blue water-pattern relative">
+    <div ref={scrollRef} data-scroll-container className="min-h-screen bg-gradient-to-br from-dark-blue via-sea-blue to-dark-blue water-pattern relative">
       {/* Navbar */}
-      <Navbar />
+      <Navbar scrollToSection={scrollToSection} />
       
       {/* Hero Section */}
-      <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden pt-16">
+      <section id="hero" data-scroll-section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden pt-16">
 
 
         {/* Main hero content */}
@@ -195,7 +259,7 @@ function App() {
       </section>
 
       {/* About / Mission Section */}
-      <section id="mission" className="py-20 px-4 bg-gradient-to-r from-dark-blue/50 to-sea-blue/50 isometric-section">
+      <section id="mission" data-scroll-section className="py-20 px-4 bg-gradient-to-r from-dark-blue/50 to-sea-blue/50 isometric-section">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold font-binarywaters-force text-white pixel-text" style={{ marginBottom: '1rem' }}>
             Our Mission
@@ -208,7 +272,7 @@ function App() {
       </section>
 
       {/* Why Join Section */}
-      <section id="why-join" className="py-20 px-4">
+      <section id="why-join" data-scroll-section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold font-binarywaters-force text-white pixel-text text-center" style={{ marginBottom: '1rem' }}>
             Why Join
@@ -231,7 +295,7 @@ function App() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 px-4 bg-gradient-to-r from-sea-blue/30 to-dark-blue/30">
+      <section id="how-it-works" data-scroll-section className="py-20 px-4 bg-gradient-to-r from-sea-blue/30 to-dark-blue/30">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold font-binarywaters-force text-white pixel-text text-center" style={{ marginBottom: '1rem' }}>
             How It Works
@@ -257,7 +321,7 @@ function App() {
       </section>
 
       {/* Project Ideas Carousel Section */}
-      <section id="projects" className="py-20 px-4">
+      <section id="projects" data-scroll-section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold font-binarywaters-force text-white pixel-text text-center" style={{ marginBottom: '1rem' }}>
             Project Ideas
@@ -347,7 +411,7 @@ function App() {
       </section>
 
       {/* Meet the Team Carousel Section */}
-      <section id="team" className="py-20 px-4">
+      <section id="team" data-scroll-section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold font-binarywaters-force text-white pixel-text text-center" style={{ marginBottom: '1rem' }}>
             Meet the Team
@@ -379,7 +443,7 @@ function App() {
                             />
                             <h3 className="text-xl sm:text-2xl font-bold font-ari text-neon-cyan pixel-text mb-1">{member.name}</h3>
                             <h4 className="text-xs sm:text-sm font-bold font-ari pixel-text mb-3">{renderRoleTitle(member.title || '')}</h4>
-                            <p className="text-xs sm:text-sm text-gray-300 font-ari text-center px-2">
+                            <p className="text-xs sm:text-sm text-gray-300 font-ari text-center px-2 whitespace-pre-line">
                               {member.description}
                             </p>
                           </div>
@@ -405,7 +469,7 @@ function App() {
                         <div className="placeholder-card rounded-lg flex flex-col justify-center items-center h-full">
                           <div className="text-4xl sm:text-6xl mb-4 opacity-50">❓</div>
                           <h3 className="text-lg sm:text-xl font-bold font-ari text-gray-400 pixel-text mb-2">{member.name}</h3>
-                          <p className="text-xs sm:text-sm text-gray-500 font-ari text-center px-4">
+                          <p className="text-xs sm:text-sm text-gray-500 font-ari text-center px-4 whitespace-pre-line">
                             {member.description}
                           </p>
                           <div className="mt-6">
@@ -461,12 +525,7 @@ function App() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-neon-cyan/10 to-neon-cyan/10 relative">
-        {/* Background logo watermark */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-5">
-          <Logo size="lg" />
-        </div>
-        
+      <section data-scroll-section className="py-20 px-4 bg-gradient-to-r from-neon-cyan/10 to-neon-cyan/10 relative">
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h2 className="text-5xl md:text-6xl font-bold font-binarywaters-force text-white pixel-text" style={{ marginBottom: '1rem' }}>
             Be a Founding Member
@@ -485,7 +544,7 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 bg-gradient-to-r from-dark-blue to-sea-blue">
+      <footer data-scroll-section className="py-12 px-4 bg-gradient-to-r from-dark-blue to-sea-blue">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center mb-6 md:mb-0">
