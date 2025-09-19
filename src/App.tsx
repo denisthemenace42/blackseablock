@@ -345,7 +345,7 @@ function App() {
                 style={{ transform: `translateX(-${currentTeamIndex * 100}%)` }}
               >
                 {teamMembers.map((member, index) => (
-                  <div key={member.id} className="w-full flex-shrink-0 flex justify-center px-4 py-10">
+                  <div key={member.id} className="w-full flex-shrink-0 flex justify-center px-2 sm:px-4 py-6 sm:py-10">
                     {member.type === 'founder' ? (
                       /* Founder Card with Flip Animation */
                       <div className="card-flip-container">
@@ -357,9 +357,9 @@ function App() {
                               alt="Denis Profile" 
                               className="profile-image"
                             />
-                            <h3 className="text-2xl font-bold font-ari text-neon-cyan pixel-text mb-1">{member.name}</h3>
-                            <h4 className="text-sm font-bold font-ari text-white pixel-text mb-3">{member.title}</h4>
-                            <p className="text-xs text-gray-300 font-ari text-center">
+                            <h3 className="text-xl sm:text-2xl font-bold font-ari text-neon-cyan pixel-text mb-1">{member.name}</h3>
+                            <h4 className="text-xs sm:text-sm font-bold font-ari text-white pixel-text mb-3">{member.title}</h4>
+                            <p className="text-xs sm:text-sm text-gray-300 font-ari text-center px-2">
                               {member.description}
                             </p>
                           </div>
@@ -371,9 +371,9 @@ function App() {
                               alt="Denis NFT" 
                               className="nft-image"
                             />
-                            <h3 className="text-xl font-bold font-ari text-yellow-400 pixel-text mb-1">{member.nftTitle}</h3>
-                            <h4 className="text-lg font-bold font-ari text-purple-400 pixel-text mb-3">{member.nftSubtitle}</h4>
-                            <p className="text-xs text-gray-300 font-ari text-center">
+                            <h3 className="text-lg sm:text-xl font-bold font-ari text-yellow-400 pixel-text mb-1">{member.nftTitle}</h3>
+                            <h4 className="text-sm sm:text-lg font-bold font-ari text-purple-400 pixel-text mb-3">{member.nftSubtitle}</h4>
+                            <p className="text-xs sm:text-sm text-gray-300 font-ari text-center px-2">
                               {member.nftDescription}
                             </p>
                           </div>
@@ -383,9 +383,9 @@ function App() {
                       /* Placeholder Card */
                       <div className="card-flip-container">
                         <div className="placeholder-card rounded-lg flex flex-col justify-center items-center h-full">
-                          <div className="text-6xl mb-4 opacity-50">❓</div>
-                          <h3 className="text-xl font-bold font-ari text-gray-400 pixel-text mb-2">{member.name}</h3>
-                          <p className="text-sm text-gray-500 font-ari text-center px-4">
+                          <div className="text-4xl sm:text-6xl mb-4 opacity-50">❓</div>
+                          <h3 className="text-lg sm:text-xl font-bold font-ari text-gray-400 pixel-text mb-2">{member.name}</h3>
+                          <p className="text-xs sm:text-sm text-gray-500 font-ari text-center px-4">
                             {member.description}
                           </p>
                           <div className="mt-6">
@@ -403,21 +403,21 @@ function App() {
               </div>
             </div>
             
-            {/* Navigation Arrows */}
+            {/* Navigation Arrows - Responsive positioning */}
             <button 
               onClick={prevTeamMember}
-              className="absolute left-64 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200 z-10"
+              className="absolute left-2 md:left-8 lg:left-16 xl:left-32 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-2 md:p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200 z-20"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             
             <button 
               onClick={nextTeamMember}
-              className="absolute right-64 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200 z-10"
+              className="absolute right-2 md:right-8 lg:right-16 xl:right-32 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-2 md:p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200 z-20"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
