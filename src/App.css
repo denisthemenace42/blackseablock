@@ -52,6 +52,40 @@
   }
 }
 
+@keyframes chromeGlow {
+  0% {
+    box-shadow: 
+      0 0 5px rgba(0, 255, 196, 0.3),
+      0 0 10px rgba(0, 255, 196, 0.2),
+      0 0 15px rgba(0, 255, 196, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 10px rgba(0, 255, 196, 0.6),
+      0 0 20px rgba(0, 255, 196, 0.4),
+      0 0 30px rgba(0, 255, 196, 0.3),
+      0 0 40px rgba(0, 255, 196, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    box-shadow: 
+      0 0 5px rgba(0, 255, 196, 0.3),
+      0 0 10px rgba(0, 255, 196, 0.2),
+      0 0 15px rgba(0, 255, 196, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes chromeReflection {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
 /* Isometric pixel art utilities */
 .pixel-shadow {
   box-shadow: 
@@ -76,6 +110,129 @@
   box-shadow: 
     2px 2px 0px #0732b2,
     4px 4px 0px #13299a;
+}
+
+/* Chrome effect card styling */
+.chrome-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.1) 0%, 
+    rgba(147, 197, 253, 0.05) 25%, 
+    rgba(59, 130, 246, 0.1) 50%, 
+    rgba(30, 64, 175, 0.05) 75%, 
+    rgba(59, 130, 246, 0.1) 100%);
+  border: 1px solid rgba(0, 255, 196, 0.2);
+  transition: all 0.4s ease;
+  transform-style: preserve-3d;
+}
+
+.chrome-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -100%;
+  width: 100%;
+  height: calc(100% + 4px);
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.4) 20%, 
+    rgba(255, 255, 255, 0.8) 50%, 
+    rgba(255, 255, 255, 0.4) 80%, 
+    transparent 100%);
+  transition: left 0.6s ease;
+  z-index: 1;
+}
+
+.chrome-card:hover::before {
+  left: 100%;
+}
+
+.chrome-card:hover {
+  background: linear-gradient(135deg, 
+    rgba(0, 255, 196, 0.15) 0%, 
+    rgba(255, 255, 255, 0.1) 25%, 
+    rgba(0, 255, 196, 0.15) 50%, 
+    rgba(7, 50, 178, 0.1) 75%, 
+    rgba(0, 255, 196, 0.15) 100%);
+  border-color: rgba(0, 255, 196, 0.6);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 196, 0.4),
+    0 0 40px rgba(0, 255, 196, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.chrome-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Chrome effect button styling */
+.chrome-button {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, 
+    rgba(0, 255, 196, 0.9) 0%, 
+    rgba(255, 255, 255, 0.8) 25%, 
+    rgba(0, 255, 196, 0.9) 50%, 
+    rgba(7, 50, 178, 0.8) 75%, 
+    rgba(0, 255, 196, 0.9) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.chrome-button::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -100%;
+  width: 100%;
+  height: calc(100% + 4px);
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.6) 20%, 
+    rgba(255, 255, 255, 1) 50%, 
+    rgba(255, 255, 255, 0.6) 80%, 
+    transparent 100%);
+  transition: left 0.5s ease;
+  z-index: 1;
+}
+
+.chrome-button:hover::before {
+  left: 100%;
+}
+
+.chrome-button:hover {
+  background: linear-gradient(135deg, 
+    rgba(0, 255, 196, 1) 0%, 
+    rgba(255, 255, 255, 0.9) 25%, 
+    rgba(0, 255, 196, 1) 50%, 
+    rgba(7, 50, 178, 0.9) 75%, 
+    rgba(0, 255, 196, 1) 100%);
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    0 0 25px rgba(0, 255, 196, 0.6),
+    0 0 50px rgba(0, 255, 196, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Navigation arrow specific styling to prevent positioning issues */
+.nav-arrow.chrome-button {
+  position: absolute;
+}
+
+.nav-arrow.chrome-button:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.chrome-button > * {
+  position: relative;
+  z-index: 2;
 }
 
 /* Isometric card styling */
@@ -117,7 +274,9 @@
   height: 380px;
   margin: 0 auto;
   transform-origin: center center;
+  position: relative;
 }
+
 
 @media (min-width: 640px) {
   .card-flip-container {
@@ -138,7 +297,7 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.8s ease-in-out;
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform-style: preserve-3d;
   transform-origin: center center;
 }
@@ -146,6 +305,7 @@
 .card-flip-container:hover .card-flip {
   transform: rotateY(180deg);
 }
+
 
 /* Hover state for card flip container - no additional styles needed */
 

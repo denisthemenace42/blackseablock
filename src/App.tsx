@@ -250,7 +250,7 @@ function App() {
           </p>
           
           <a href="https://discord.gg/ujpUU9T3Vc" target="_blank" rel="noopener noreferrer">
-            <button className="px-8 py-4 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black font-bold text-lg font-ari pixel-border pixel-button">
+            <button className="px-8 py-4 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black font-bold text-lg font-ari pixel-border pixel-button chrome-button">
               Join Discord
             </button>
           </a>
@@ -284,7 +284,7 @@ function App() {
               { icon: '🧑‍💻', title: 'Learn by Doing', desc: 'Hands-on experience with cutting-edge tech' },
               { icon: '🤝', title: 'Meet Like-Minded Students', desc: 'Connect with fellow builders and innovators' }
             ].map((item, index) => (
-              <div key={index} className="bg-gradient-to-br from-sea-blue/30 to-dark-blue/50 p-6 pixel-border isometric-card">
+              <div key={index} className="bg-gradient-to-br from-sea-blue/30 to-dark-blue/50 p-6 pixel-border isometric-card chrome-card">
                 <div className="text-4xl mb-4">{item.icon}</div>
                 <h3 className="text-xl font-bold font-ari text-neon-cyan pixel-text mb-3">{item.title}</h3>
                 <p className="text-gray-300 font-ari">{item.desc}</p>
@@ -308,8 +308,8 @@ function App() {
               { step: '03', title: 'Join Sprint', desc: 'Jump into active projects' },
               { step: '04', title: 'Build & Grow', desc: 'Create and learn together' }
             ].map((item, index) => (
-              <div key={index} className="text-center isometric-card">
-                <div className="w-16 h-16 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black font-bold text-xl font-ari rounded-lg flex items-center justify-center mx-auto mb-4 pixel-border isometric-card">
+              <div key={index} className="text-center isometric-card chrome-card">
+                <div className="w-16 h-16 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black font-bold text-xl font-ari rounded-lg flex items-center justify-center mx-auto mb-4 pixel-border isometric-card chrome-button">
                   {item.step}
                 </div>
                 <h3 className="text-xl font-bold font-ari text-neon-cyan pixel-text mb-3">{item.title}</h3>
@@ -340,7 +340,7 @@ function App() {
               >
                 {projectIdeas.map((project, index) => (
                   <div key={project.id} className="w-full flex-shrink-0 px-4">
-                    <div className="bg-gradient-to-br from-sea-blue/50 to-dark-blue/50 p-8 pixel-border isometric-card">
+                    <div className="bg-gradient-to-br from-sea-blue/50 to-dark-blue/50 p-8 pixel-border isometric-card chrome-card">
                       <div className="text-center">
                         {/* Project Info */}
                         <div className="flex items-center justify-center mb-6">
@@ -376,7 +376,8 @@ function App() {
             {/* Navigation Arrows */}
             <button 
               onClick={prevProject}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200"
+              className="nav-arrow chrome-button absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-6 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200"
+              style={{ position: 'absolute', left: '-2rem', top: '50%', transform: 'translateY(-50%)' }}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -385,7 +386,8 @@ function App() {
             
             <button 
               onClick={nextProject}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200"
+              className="nav-arrow chrome-button absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-6 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200"
+              style={{ position: 'absolute', right: '-2rem', top: '50%', transform: 'translateY(-50%)' }}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -467,14 +469,14 @@ function App() {
                       /* Placeholder Card */
                       <div className="card-flip-container">
                         <div className="placeholder-card rounded-lg flex flex-col justify-center items-center h-full">
-                          <div className="text-4xl sm:text-6xl mb-4 opacity-50">❓</div>
-                          <h3 className="text-lg sm:text-xl font-bold font-ari text-gray-400 pixel-text mb-2">{member.name}</h3>
-                          <p className="text-xs sm:text-sm text-gray-500 font-ari text-center px-4 whitespace-pre-line">
+                          <div className="text-4xl sm:text-6xl mb-4 text-white opacity-80 drop-shadow-lg">❓</div>
+                          <h3 className="text-lg sm:text-xl font-bold font-ari text-white pixel-text mb-2 drop-shadow-lg">{member.name}</h3>
+                          <p className="text-xs sm:text-sm text-gray-200 font-ari text-center px-4 whitespace-pre-line drop-shadow-md">
                             {member.description}
                           </p>
                           <div className="mt-6">
                             <a href="https://discord.gg/ujpUU9T3Vc" target="_blank" rel="noopener noreferrer">
-                              <button className="px-6 py-2 bg-gradient-to-r from-neon-cyan/20 to-neon-cyan/20 text-neon-cyan font-bold text-sm font-ari pixel-border hover:from-neon-cyan/30 hover:to-neon-cyan/30 transition-all duration-200">
+                              <button className="px-6 py-2 bg-gradient-to-r from-neon-cyan/20 to-neon-cyan/20 text-black font-bold text-sm font-ari pixel-border chrome-button hover:from-neon-cyan/30 hover:to-neon-cyan/30 transition-all duration-200">
                                 Join Us
                               </button>
                             </a>
@@ -490,7 +492,8 @@ function App() {
             {/* Navigation Arrows - Responsive positioning */}
             <button 
               onClick={prevTeamMember}
-              className="absolute left-2 md:left-8 lg:left-16 xl:left-32 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-2 md:p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200 z-20"
+              className="nav-arrow chrome-button absolute bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-2 md:p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200 z-20"
+              style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }}
             >
               <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -499,7 +502,8 @@ function App() {
             
             <button 
               onClick={nextTeamMember}
-              className="absolute right-2 md:right-8 lg:right-16 xl:right-32 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-2 md:p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200 z-20"
+              className="nav-arrow chrome-button absolute bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-2 md:p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200 z-20"
+              style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)' }}
             >
               <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -535,7 +539,7 @@ function App() {
           </p>
           
           <a href="https://discord.gg/ujpUU9T3Vc" target="_blank" rel="noopener noreferrer">
-            <button className="px-12 py-6 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black font-bold text-xl font-ari pixel-border pixel-button mb-8">
+            <button className="px-12 py-6 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black font-bold text-xl font-ari pixel-border pixel-button chrome-button mb-8">
               Join the Discord
             </button>
           </a>
