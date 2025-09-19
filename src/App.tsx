@@ -127,12 +127,6 @@ function App() {
       
       {/* Hero Section */}
       <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden pt-16">
-        {/* Background wave animation */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-1/4 left-0 w-full h-32 bg-gradient-to-r from-transparent via-neon-cyan to-transparent transform -skew-y-1 animate-wave"></div>
-          <div className="absolute top-1/2 right-0 w-full h-24 bg-gradient-to-l from-transparent via-neon-cyan to-transparent transform skew-y-1 animate-wave" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-1/4 left-0 w-full h-28 bg-gradient-to-r from-transparent via-neon-cyan to-transparent transform -skew-y-2 animate-wave" style={{ animationDelay: '2s' }}></div>
-        </div>
 
 
         {/* Main hero content */}
@@ -176,12 +170,6 @@ function App() {
           </a>
         </div>
 
-        {/* Floating pixel elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-neon-cyan animate-pulse"></div>
-          <div className="absolute top-3/4 right-1/4 w-3 h-3 bg-neon-cyan animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/6 w-2 h-2 bg-neon-cyan animate-pulse" style={{ animationDelay: '2s' }}></div>
-        </div>
       </section>
 
       {/* About / Mission Section */}
