@@ -80,7 +80,7 @@ function App() {
       id: 'founder',
       type: 'founder',
       name: 'DENIS',
-      title: 'Founder / Developer / Designer',
+      title: '< Developer / Founder / Designer >',
       description: 'Computer Science student at TU-Varna. Building the future of Web3 education',
       profileImage: profileImage,
       nftImage: nftImage,
@@ -118,6 +118,28 @@ function App() {
 
   const goToTeamMember = (index: number) => {
     setCurrentTeamIndex(index);
+  };
+
+  // Function to render role titles with different colors
+  const renderRoleTitle = (title: string) => {
+    const roles = title.split(' / ');
+    return roles.map((role, index) => {
+      let roleClass = '';
+      if (role.toLowerCase().includes('founder')) {
+        roleClass = 'role-founder';
+      } else if (role.toLowerCase().includes('developer')) {
+        roleClass = 'role-developer';
+      } else if (role.toLowerCase().includes('designer')) {
+        roleClass = 'role-designer';
+      }
+      
+      return (
+        <span key={index} className={roleClass}>
+          {role}
+          {index < roles.length - 1 && <span className="text-white"> / </span>}
+        </span>
+      );
+    });
   };
 
   return (
@@ -356,7 +378,7 @@ function App() {
                               className="profile-image"
                             />
                             <h3 className="text-xl sm:text-2xl font-bold font-ari text-neon-cyan pixel-text mb-1">{member.name}</h3>
-                            <h4 className="text-xs sm:text-sm font-bold font-ari text-white pixel-text mb-3">{member.title}</h4>
+                            <h4 className="text-xs sm:text-sm font-bold font-ari pixel-text mb-3">{renderRoleTitle(member.title || '')}</h4>
                             <p className="text-xs sm:text-sm text-gray-300 font-ari text-center px-2">
                               {member.description}
                             </p>
@@ -369,8 +391,8 @@ function App() {
                               alt="Denis NFT" 
                               className="nft-image"
                             />
-                            <h3 className="text-lg sm:text-xl font-bold font-ari text-yellow-400 pixel-text mb-1">{member.nftTitle}</h3>
-                            <h4 className="text-sm sm:text-lg font-bold font-ari text-purple-400 pixel-text mb-3">{member.nftSubtitle}</h4>
+                            <h3 className="text-lg sm:text-xl font-bold font-ari nft-title pixel-text mb-1">{member.nftTitle}</h3>
+                            <h4 className="text-sm sm:text-lg font-bold font-ari nft-subtitle pixel-text mb-3">{member.nftSubtitle}</h4>
                             <p className="text-xs sm:text-sm text-gray-300 font-ari text-center px-2">
                               {member.nftDescription}
                             </p>

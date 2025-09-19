@@ -40,6 +40,18 @@
   }
 }
 
+@keyframes chromeShine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  50% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+}
+
 /* Isometric pixel art utilities */
 .pixel-shadow {
   box-shadow: 
@@ -104,6 +116,7 @@
   width: 280px;
   height: 380px;
   margin: 0 auto;
+  transform-origin: center center;
 }
 
 @media (min-width: 640px) {
@@ -125,16 +138,21 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.8s;
+  transition: transform 0.8s ease-in-out;
   transform-style: preserve-3d;
+  transform-origin: center center;
 }
 
 .card-flip-container:hover .card-flip {
   transform: rotateY(180deg);
 }
 
+/* Hover state for card flip container - no additional styles needed */
+
 .card-front, .card-back {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
@@ -145,6 +163,7 @@
   align-items: center;
   padding: 15px;
   box-sizing: border-box;
+  transform-origin: center center;
 }
 
 @media (min-width: 640px) {
@@ -154,26 +173,110 @@
 }
 
 .card-front {
-  background: linear-gradient(135deg, rgba(0, 255, 196, 0.1) 0%, rgba(7, 50, 178, 0.3) 100%);
-  border: 2px solid #00ffc4;
+  background: 
+    linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(147, 197, 253, 0.8) 25%, rgba(59, 130, 246, 0.9) 50%, rgba(30, 64, 175, 0.8) 75%, rgba(59, 130, 246, 0.9) 100%),
+    linear-gradient(45deg, rgba(59, 130, 246, 0.1) 0%, rgba(30, 64, 175, 0.3) 100%);
+  border: 2px solid #3b82f6;
+  box-shadow: 
+    inset 0 1px 0 rgba(147, 197, 253, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(59, 130, 246, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-front::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+  animation: chromeShine 3s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .card-back {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 140, 0, 0.3) 100%);
-  border: 2px solid #ffd700;
+  background: 
+    linear-gradient(135deg, rgba(251, 191, 36, 0.9) 0%, rgba(254, 240, 138, 0.8) 25%, rgba(251, 191, 36, 0.9) 50%, rgba(245, 158, 11, 0.8) 75%, rgba(251, 191, 36, 0.9) 100%),
+    linear-gradient(45deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.3) 100%);
+  border: 2px solid #f59e0b;
   transform: rotateY(180deg);
+  box-shadow: 
+    inset 0 1px 0 rgba(254, 240, 138, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(251, 191, 36, 0.4);
+  overflow: hidden;
+}
+
+.card-back::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
+  animation: chromeShine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.card-flip-container:hover .card-front {
+  box-shadow: 
+    inset 0 1px 0 rgba(147, 197, 253, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(59, 130, 246, 0.6);
+}
+
+.card-flip-container:hover .card-back {
+  box-shadow: 
+    inset 0 1px 0 rgba(254, 240, 138, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(251, 191, 36, 0.6);
 }
 
 .placeholder-card {
-  background: linear-gradient(135deg, rgba(128, 128, 128, 0.1) 0%, rgba(64, 64, 64, 0.3) 100%);
+  background: 
+    linear-gradient(135deg, rgba(128, 128, 128, 0.9) 0%, rgba(192, 192, 192, 0.8) 25%, rgba(128, 128, 128, 0.9) 50%, rgba(64, 64, 64, 0.8) 75%, rgba(128, 128, 128, 0.9) 100%),
+    linear-gradient(45deg, rgba(128, 128, 128, 0.1) 0%, rgba(64, 64, 64, 0.3) 100%);
   border: 2px dashed #888;
   transition: all 0.3s ease;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(128, 128, 128, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.placeholder-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+  animation: chromeShine 4s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .placeholder-card:hover {
   border-color: #00ffc4;
-  background: linear-gradient(135deg, rgba(0, 255, 196, 0.1) 0%, rgba(7, 50, 178, 0.3) 100%);
-  transform: translateY(-5px);
+  background: 
+    linear-gradient(135deg, rgba(0, 255, 196, 0.9) 0%, rgba(255, 255, 255, 0.8) 25%, rgba(0, 255, 196, 0.9) 50%, rgba(7, 50, 178, 0.8) 75%, rgba(0, 255, 196, 0.9) 100%),
+    linear-gradient(45deg, rgba(0, 255, 196, 0.1) 0%, rgba(7, 50, 178, 0.3) 100%);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(0, 255, 196, 0.6);
 }
 
 
@@ -182,8 +285,13 @@
   height: 200px;
   border-radius: 15px;
   object-fit: cover;
-  border: 3px solid #00ffc4;
+  border: 3px solid #3b82f6;
   margin-bottom: 20px;
+  box-shadow: 
+    inset 0 1px 0 rgba(147, 197, 253, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(59, 130, 246, 0.4);
 }
 
 .nft-image {
@@ -191,8 +299,13 @@
   height: 200px;
   border-radius: 15px;
   object-fit: cover;
-  border: 3px solid #ffd700;
+  border: 3px solid #f59e0b;
   margin-bottom: 20px;
+  box-shadow: 
+    inset 0 1px 0 rgba(254, 240, 138, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(251, 191, 36, 0.4);
 }
 
 @media (min-width: 640px) {
@@ -236,7 +349,7 @@
   }
   
   .isometric-card:hover {
-    transform: rotateX(5deg) rotateY(-5deg) translateY(-3px);
+    transform: rotateX(5deg) rotateY(-5deg);
   }
 
   .card-flip-container {
@@ -274,4 +387,31 @@
   .card-front, .card-back {
     padding: 15px;
   }
+}
+
+/* Role-specific color styles for profile card */
+.role-founder {
+  color: #ffd700; /* Gold/Yellow */
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+.role-developer {
+  color: #00ff41; /* Neon Green */
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.6);
+}
+
+.role-designer {
+  color: #a855f7; /* Purple/Techy */
+  text-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+}
+
+/* NFT card text styles with swapped colors and glow effects */
+.nft-title {
+  color: #a855f7; /* Purple/Techy - swapped from yellow */
+  text-shadow: 0 0 12px rgba(168, 85, 247, 0.8);
+}
+
+.nft-subtitle {
+  color: #ffd700; /* Gold/Yellow - swapped from purple */
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
 }
