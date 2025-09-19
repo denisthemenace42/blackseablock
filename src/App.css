@@ -512,6 +512,43 @@
     transform: rotateX(5deg) rotateY(-5deg);
   }
 
+  /* Lighter chrome effects for mobile */
+  .chrome-card:hover {
+    background: linear-gradient(135deg, 
+      rgba(0, 255, 196, 0.08) 0%, 
+      rgba(255, 255, 255, 0.05) 25%, 
+      rgba(0, 255, 196, 0.08) 50%, 
+      rgba(7, 50, 178, 0.05) 75%, 
+      rgba(0, 255, 196, 0.08) 100%);
+    border-color: rgba(0, 255, 196, 0.3);
+    box-shadow: 
+      0 0 8px rgba(0, 255, 196, 0.2),
+      0 0 16px rgba(0, 255, 196, 0.1),
+      0 4px 16px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px) scale(1.01);
+  }
+
+  .chrome-button:hover {
+    background: linear-gradient(135deg, 
+      rgba(0, 255, 196, 0.8) 0%, 
+      rgba(255, 255, 255, 0.7) 25%, 
+      rgba(0, 255, 196, 0.8) 50%, 
+      rgba(7, 50, 178, 0.7) 75%, 
+      rgba(0, 255, 196, 0.8) 100%);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 
+      0 0 12px rgba(0, 255, 196, 0.3),
+      0 0 24px rgba(0, 255, 196, 0.15),
+      0 4px 16px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px) scale(1.03);
+  }
+
+  .nav-arrow.chrome-button:hover {
+    transform: translateY(-1px) scale(1.01);
+  }
+
   .card-flip-container {
     width: 260px;
     height: 360px;
@@ -525,6 +562,45 @@
   .nft-image {
     width: 180px;
     height: 180px;
+  }
+}
+
+/* Tablet adjustments - lighter chrome effects */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .chrome-card:hover {
+    background: linear-gradient(135deg, 
+      rgba(0, 255, 196, 0.12) 0%, 
+      rgba(255, 255, 255, 0.08) 25%, 
+      rgba(0, 255, 196, 0.12) 50%, 
+      rgba(7, 50, 178, 0.08) 75%, 
+      rgba(0, 255, 196, 0.12) 100%);
+    border-color: rgba(0, 255, 196, 0.4);
+    box-shadow: 
+      0 0 12px rgba(0, 255, 196, 0.25),
+      0 0 24px rgba(0, 255, 196, 0.15),
+      0 6px 20px rgba(0, 0, 0, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateY(-1.5px) scale(1.015);
+  }
+
+  .chrome-button:hover {
+    background: linear-gradient(135deg, 
+      rgba(0, 255, 196, 0.9) 0%, 
+      rgba(255, 255, 255, 0.8) 25%, 
+      rgba(0, 255, 196, 0.9) 50%, 
+      rgba(7, 50, 178, 0.8) 75%, 
+      rgba(0, 255, 196, 0.9) 100%);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 
+      0 0 18px rgba(0, 255, 196, 0.4),
+      0 0 36px rgba(0, 255, 196, 0.2),
+      0 6px 20px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transform: translateY(-2.5px) scale(1.04);
+  }
+
+  .nav-arrow.chrome-button:hover {
+    transform: translateY(-1.5px) scale(1.02);
   }
 }
 

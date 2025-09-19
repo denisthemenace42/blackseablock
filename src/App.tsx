@@ -24,13 +24,13 @@ function App() {
         class: 'is-revealed',
         scrollFromAnywhere: false,
         touchMultiplier: 2,
-        smoothMobile: true,
+        smoothMobile: false,
         smartphone: {
-          smooth: true,
+          smooth: false,
           breakpoint: 767
         },
         tablet: {
-          smooth: true,
+          smooth: false,
           breakpoint: 1024
         }
       });
