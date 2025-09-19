@@ -196,9 +196,7 @@ function App() {
             {[
               { icon: '🚀', title: 'Build Real Projects', desc: 'Create actual Web3 applications that matter' },
               { icon: '🧑‍💻', title: 'Learn by Doing', desc: 'Hands-on experience with cutting-edge tech' },
-              { icon: '🤝', title: 'Meet Like-Minded Students', desc: 'Connect with fellow builders and innovators' },
-              { icon: '🌍', title: 'Be Part of Something Bigger', desc: 'Join a global movement of student developers' },
-              { icon: '🏆', title: 'Gain Recognition & Rewards', desc: 'Showcase your work and earn recognition' }
+              { icon: '🤝', title: 'Meet Like-Minded Students', desc: 'Connect with fellow builders and innovators' }
             ].map((item, index) => (
               <div key={index} className="bg-gradient-to-br from-sea-blue/30 to-dark-blue/50 p-6 pixel-border isometric-card">
                 <div className="text-4xl mb-4">{item.icon}</div>
