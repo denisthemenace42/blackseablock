@@ -10,7 +10,6 @@ import 'locomotive-scroll/dist/locomotive-scroll.css';
 
 function App() {
   const [logoLoaded, setLogoLoaded] = useState(false);
-  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [currentTeamIndex, setCurrentTeamIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const locomotiveScrollRef = useRef<LocomotiveScroll | null>(null);
@@ -126,17 +125,6 @@ function App() {
     }
   ];
 
-  const nextProject = () => {
-    setCurrentProjectIndex((prev) => (prev + 1) % projectIdeas.length);
-  };
-
-  const prevProject = () => {
-    setCurrentProjectIndex((prev) => (prev - 1 + projectIdeas.length) % projectIdeas.length);
-  };
-
-  const goToProject = (index: number) => {
-    setCurrentProjectIndex(index);
-  };
 
   // Team carousel data
   const teamMembers = [
@@ -278,16 +266,32 @@ function App() {
             Why Join
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
             {[
-              { icon: '🚀', title: 'Build Real Projects', desc: 'Create actual Web3 applications that matter' },
-              { icon: '🧑‍💻', title: 'Learn by Doing', desc: 'Hands-on experience with cutting-edge tech' },
-              { icon: '🤝', title: 'Meet Like-Minded Students', desc: 'Connect with fellow builders and innovators' }
+              { icon: '🚀', title: 'Build Real Projects', desc: 'Turn ideas into working Web3 apps. You’ll create projects that matter, build your portfolio, and leave with real results—not just theory.' },
+              { icon: '🧑‍💻', title: 'Learn by Doing', desc: 'Skip the endless lectures. Gain hands-on experience with blockchain by building, testing, and deploying real applications.' },
+              { icon: '🤝', title: 'Meet Like-Minded Students', desc: 'Join a community of passionate builders. Collaborate, share ideas, and connect with future partners and friends.' }
             ].map((item, index) => (
-              <div key={index} className="bg-gradient-to-br from-sea-blue/30 to-dark-blue/50 p-6 pixel-border isometric-card chrome-card">
-                <div className="text-4xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-bold font-ari text-neon-cyan pixel-text mb-3">{item.title}</h3>
-                <p className="text-gray-300 font-ari">{item.desc}</p>
+              <div key={index} className="why-join-flip-container">
+                <div className="why-join-flip">
+                  {/* Front - "Why Join?" with Icon */}
+                  <div className="why-join-front">
+                    <div className="text-5xl mb-4">{item.icon}</div>
+                    <h3 className="text-2xl font-bold font-ari text-white pixel-text text-center">
+                      Why Join?
+                    </h3>
+                  </div>
+                  
+                  {/* Back - Title and Description */}
+                  <div className="why-join-back">
+                    <h3 className="text-xl font-bold font-ari text-neon-cyan pixel-text mb-4 text-center">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-300 font-ari text-center text-sm leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -301,26 +305,39 @@ function App() {
             How It Works
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
             {[
-              { step: '01', title: 'Join Discord', desc: 'Connect with the community' },
-              { step: '02', title: 'Pick Role', desc: 'Choose your specialization' },
-              { step: '03', title: 'Join Sprint', desc: 'Jump into active projects' },
-              { step: '04', title: 'Build & Grow', desc: 'Create and learn together' }
+              { step: '1', title: 'Join Discord', desc: 'Connect with the community' },
+              { step: '2', title: 'Pick Role', desc: 'Choose your specialization' },
+              { step: '3', title: 'Join Sprint', desc: 'Jump into active projects' },
+              { step: '4', title: 'Build & Grow', desc: 'Create and learn together' }
             ].map((item, index) => (
-              <div key={index} className="text-center isometric-card chrome-card">
-                <div className="w-16 h-16 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black font-bold text-xl font-ari rounded-lg flex items-center justify-center mx-auto mb-4 pixel-border isometric-card chrome-button">
-                  {item.step}
+              <div key={index} className="steps-flip-container">
+                <div className="steps-flip">
+                  {/* Front - Step Number */}
+                  <div className="steps-front">
+                    <div className="text-6xl font-bold font-ari text-white pixel-text">
+                      {item.step}
+                    </div>
+                  </div>
+                  
+                  {/* Back - Title and Description */}
+                  <div className="steps-back">
+                    <h3 className="text-xl font-bold font-ari text-neon-cyan pixel-text mb-4 text-center">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-300 font-ari text-center text-sm">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold font-ari text-neon-cyan pixel-text mb-3">{item.title}</h3>
-                <p className="text-gray-300 font-ari">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Project Ideas Carousel Section */}
+      {/* Project Ideas Grid Section */}
       <section id="projects" data-scroll-section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold font-binarywaters-force text-white pixel-text text-center" style={{ marginBottom: '1rem' }}>
@@ -330,83 +347,44 @@ function App() {
             Explore different Web3 project concepts you can build with our community
           </p>
           
-          {/* Carousel Container */}
-          <div className="relative">
-            {/* Main Carousel */}
-            <div className="overflow-hidden">
-              <div 
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentProjectIndex * 100}%)` }}
-              >
-                {projectIdeas.map((project, index) => (
-                  <div key={project.id} className="w-full flex-shrink-0 px-4">
-                    <div className="bg-gradient-to-br from-sea-blue/50 to-dark-blue/50 p-8 pixel-border isometric-card chrome-card">
-                      <div className="text-center">
-                        {/* Project Info */}
-                        <div className="flex items-center justify-center mb-6">
-                          <div className="text-5xl mr-4">{project.icon}</div>
-                          <h3 className="text-3xl font-bold font-blox text-neon-cyan pixel-text">
-                            {project.title}
-                          </h3>
-                        </div>
-                        <p className="text-gray-300 font-ari mb-8 leading-relaxed text-lg max-w-3xl mx-auto">
-                          {project.description}
-                        </p>
-                        <div className="flex flex-wrap gap-3 justify-center">
-                          {project.tools.map((tool, toolIndex) => (
-                            <span 
-                              key={toolIndex} 
-                              className={`px-4 py-2 text-sm font-ari pixel-border isometric-card ${
-                                toolIndex % 2 === 0 
-                                  ? 'bg-neon-cyan/20 text-neon-cyan' 
-                                  : 'bg-teal-300/20 text-teal-300'
-                              }`}
-                            >
-                              {tool}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
+          {/* Project Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+            {projectIdeas.map((project, index) => (
+              <div key={project.id} className="project-flip-container">
+                <div className="project-flip">
+                  {/* Front - Title and Icon */}
+                  <div className="project-front">
+                    <div className="text-6xl mb-6">{project.icon}</div>
+                    <h3 className="text-2xl font-bold font-blox text-white pixel-text text-center">
+                      {project.title}
+                    </h3>
+                  </div>
+                  
+                  {/* Back - Description and Tools */}
+                  <div className="project-back">
+                    <h3 className="text-xl font-bold font-blox text-neon-cyan pixel-text mb-4 text-center">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-300 font-ari mb-6 leading-relaxed text-sm text-center">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 justify-center">
+                      {project.tools.map((tool, toolIndex) => (
+                        <span 
+                          key={toolIndex} 
+                          className={`px-3 py-1 text-xs font-ari pixel-border isometric-card ${
+                            toolIndex % 2 === 0 
+                              ? 'bg-neon-cyan/20 text-neon-cyan' 
+                              : 'bg-teal-300/20 text-teal-300'
+                          }`}
+                        >
+                          {tool}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
-            
-            {/* Navigation Arrows */}
-            <button 
-              onClick={prevProject}
-              className="nav-arrow chrome-button absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-6 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200"
-              style={{ position: 'absolute', left: '-2rem', top: '50%', transform: 'translateY(-50%)' }}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            
-            <button 
-              onClick={nextProject}
-              className="nav-arrow chrome-button absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-6 bg-gradient-to-r from-neon-cyan to-neon-cyan text-black p-3 pixel-border isometric-card hover:from-neon-cyan/80 hover:to-neon-cyan/80 transition-all duration-200"
-              style={{ position: 'absolute', right: '-2rem', top: '50%', transform: 'translateY(-50%)' }}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-          
-          {/* Carousel Dots */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {projectIdeas.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToProject(index)}
-                className={`w-3 h-3 transition-all duration-200 ${
-                  currentProjectIndex === index 
-                    ? 'bg-neon-cyan' 
-                    : 'bg-gray-600 hover:bg-gray-400'
-                }`}
-              />
             ))}
           </div>
         </div>

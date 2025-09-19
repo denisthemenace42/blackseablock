@@ -655,3 +655,441 @@
   color: #ffd700; /* Gold/Yellow - swapped from purple */
   text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
 }
+
+/* Project Flip Cards - Similar to team cards but with different styling */
+.project-flip-container {
+  perspective: 1000px;
+  width: 280px;
+  height: 320px;
+  margin: 0 auto;
+  transform-origin: center center;
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  .project-flip-container {
+    width: 300px;
+    height: 340px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .project-flip-container {
+    width: 320px;
+    height: 360px;
+  }
+}
+
+.project-flip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+  transform-origin: center center;
+}
+
+.project-flip-container:hover .project-flip {
+  transform: rotateY(180deg);
+}
+
+.project-front, .project-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  transform-origin: center center;
+}
+
+.project-front {
+  background: 
+    linear-gradient(135deg, rgba(0, 255, 196, 0.9) 0%, rgba(255, 255, 255, 0.8) 25%, rgba(0, 255, 196, 0.9) 50%, rgba(7, 50, 178, 0.8) 75%, rgba(0, 255, 196, 0.9) 100%),
+    linear-gradient(45deg, rgba(0, 255, 196, 0.1) 0%, rgba(7, 50, 178, 0.3) 100%);
+  border: 2px solid #00ffc4;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 255, 196, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-front::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+  animation: chromeShine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.project-back {
+  background: 
+    linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(147, 197, 253, 0.8) 25%, rgba(59, 130, 246, 0.9) 50%, rgba(30, 64, 175, 0.8) 75%, rgba(59, 130, 246, 0.9) 100%),
+    linear-gradient(45deg, rgba(59, 130, 246, 0.1) 0%, rgba(30, 64, 175, 0.3) 100%);
+  border: 2px solid #3b82f6;
+  transform: rotateY(180deg);
+  box-shadow: 
+    inset 0 1px 0 rgba(147, 197, 253, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(59, 130, 246, 0.4);
+  overflow: hidden;
+}
+
+.project-back::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
+  animation: chromeShine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.project-flip-container:hover .project-front {
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(0, 255, 196, 0.6);
+}
+
+.project-flip-container:hover .project-back {
+  box-shadow: 
+    inset 0 1px 0 rgba(147, 197, 253, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(59, 130, 246, 0.6);
+}
+
+/* Responsive adjustments for project cards */
+@media (max-width: 640px) {
+  .project-flip-container {
+    width: 260px;
+    height: 300px;
+  }
+
+  .project-front, .project-back {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-flip-container {
+    width: 240px;
+    height: 280px;
+  }
+
+  .project-front, .project-back {
+    padding: 12px;
+  }
+}
+
+/* Steps Flip Cards - Similar to project cards but smaller and different colors */
+.steps-flip-container {
+  perspective: 1000px;
+  width: 200px;
+  height: 240px;
+  margin: 0 auto;
+  transform-origin: center center;
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  .steps-flip-container {
+    width: 220px;
+    height: 260px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .steps-flip-container {
+    width: 240px;
+    height: 280px;
+  }
+}
+
+.steps-flip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+  transform-origin: center center;
+}
+
+.steps-flip-container:hover .steps-flip {
+  transform: rotateY(180deg);
+}
+
+.steps-front, .steps-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  transform-origin: center center;
+}
+
+.steps-front {
+  background: 
+    linear-gradient(135deg, rgba(168, 85, 247, 0.9) 0%, rgba(196, 181, 253, 0.8) 25%, rgba(168, 85, 247, 0.9) 50%, rgba(124, 58, 237, 0.8) 75%, rgba(168, 85, 247, 0.9) 100%),
+    linear-gradient(45deg, rgba(168, 85, 247, 0.1) 0%, rgba(124, 58, 237, 0.3) 100%);
+  border: 2px solid #a855f7;
+  box-shadow: 
+    inset 0 1px 0 rgba(196, 181, 253, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(168, 85, 247, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.steps-front::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+  animation: chromeShine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.steps-back {
+  background: 
+    linear-gradient(135deg, rgba(34, 197, 94, 0.9) 0%, rgba(134, 239, 172, 0.8) 25%, rgba(34, 197, 94, 0.9) 50%, rgba(22, 163, 74, 0.8) 75%, rgba(34, 197, 94, 0.9) 100%),
+    linear-gradient(45deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.3) 100%);
+  border: 2px solid #22c55e;
+  transform: rotateY(180deg);
+  box-shadow: 
+    inset 0 1px 0 rgba(134, 239, 172, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(34, 197, 94, 0.4);
+  overflow: hidden;
+}
+
+.steps-back::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
+  animation: chromeShine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.steps-flip-container:hover .steps-front {
+  box-shadow: 
+    inset 0 1px 0 rgba(196, 181, 253, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(168, 85, 247, 0.6);
+}
+
+.steps-flip-container:hover .steps-back {
+  box-shadow: 
+    inset 0 1px 0 rgba(134, 239, 172, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(34, 197, 94, 0.6);
+}
+
+/* Responsive adjustments for steps cards */
+@media (max-width: 640px) {
+  .steps-flip-container {
+    width: 180px;
+    height: 220px;
+  }
+
+  .steps-front, .steps-back {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .steps-flip-container {
+    width: 160px;
+    height: 200px;
+  }
+
+  .steps-front, .steps-back {
+    padding: 12px;
+  }
+}
+
+/* Why Join Flip Cards - Similar to project cards but with different colors */
+.why-join-flip-container {
+  perspective: 1000px;
+  width: 280px;
+  height: 320px;
+  margin: 0 auto;
+  transform-origin: center center;
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  .why-join-flip-container {
+    width: 300px;
+    height: 340px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-join-flip-container {
+    width: 320px;
+    height: 360px;
+  }
+}
+
+.why-join-flip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+  transform-origin: center center;
+}
+
+.why-join-flip-container:hover .why-join-flip {
+  transform: rotateY(180deg);
+}
+
+.why-join-front, .why-join-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  transform-origin: center center;
+}
+
+.why-join-front {
+  background: 
+    linear-gradient(135deg, rgba(239, 68, 68, 0.9) 0%, rgba(252, 165, 165, 0.8) 25%, rgba(239, 68, 68, 0.9) 50%, rgba(220, 38, 38, 0.8) 75%, rgba(239, 68, 68, 0.9) 100%),
+    linear-gradient(45deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.3) 100%);
+  border: 2px solid #ef4444;
+  box-shadow: 
+    inset 0 1px 0 rgba(252, 165, 165, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(239, 68, 68, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.why-join-front::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+  animation: chromeShine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.why-join-back {
+  background: 
+    linear-gradient(135deg, rgba(34, 197, 94, 0.9) 0%, rgba(134, 239, 172, 0.8) 25%, rgba(34, 197, 94, 0.9) 50%, rgba(22, 163, 74, 0.8) 75%, rgba(34, 197, 94, 0.9) 100%),
+    linear-gradient(45deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.3) 100%);
+  border: 2px solid #22c55e;
+  transform: rotateY(180deg);
+  box-shadow: 
+    inset 0 1px 0 rgba(134, 239, 172, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(34, 197, 94, 0.4);
+  overflow: hidden;
+}
+
+.why-join-back::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
+  animation: chromeShine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.why-join-flip-container:hover .why-join-front {
+  box-shadow: 
+    inset 0 1px 0 rgba(252, 165, 165, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(239, 68, 68, 0.6);
+}
+
+.why-join-flip-container:hover .why-join-back {
+  box-shadow: 
+    inset 0 1px 0 rgba(134, 239, 172, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(34, 197, 94, 0.6);
+}
+
+/* Responsive adjustments for why join cards */
+@media (max-width: 640px) {
+  .why-join-flip-container {
+    width: 260px;
+    height: 300px;
+  }
+
+  .why-join-front, .why-join-back {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-join-flip-container {
+    width: 240px;
+    height: 280px;
+  }
+
+  .why-join-front, .why-join-back {
+    padding: 12px;
+  }
+}
