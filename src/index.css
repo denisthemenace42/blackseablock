@@ -98,7 +98,7 @@ code {
 }
 
 /* Ensure no white space appears anywhere */
-html, body, #root, .App {
+html, body, #root {
   background: linear-gradient(135deg, #021651 0%, #13299a 50%, #021651 100%);
   background-attachment: fixed;
 }

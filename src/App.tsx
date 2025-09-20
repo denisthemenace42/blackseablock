@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Logo from './components/Logo';
 import Navbar from './components/Navbar';
 import './App.css';
@@ -304,7 +304,7 @@ function App() {
             How It Works
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 justify-items-center max-w-4xl mx-auto lg:max-w-6xl">
             {[
               { step: '1', title: 'Join Discord', desc: 'Connect with the community', id: 'discord', emoji: '💬', actionEmoji: '🚪' },
               { step: '2', title: 'Pick Role', desc: 'Choose your specialization', id: 'role', emoji: '🎯', actionEmoji: '⚡' },
@@ -547,9 +547,9 @@ function App() {
           </p>
           
           {/* Team Grid Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
-            {/* Left Placeholder */}
-            <div className="card-flip-container">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center team-grid">
+            {/* First - Placeholder Card (Desktop: Left, Mobile: Second) */}
+            <div className="card-flip-container team-card-left">
               <div className="card-flip">
                 {/* Front - Question Mark Only */}
                 <div className="placeholder-front">
@@ -558,29 +558,40 @@ function App() {
                 
                 {/* Back - Join Message */}
                 <div className="placeholder-back">
-                  <h3 className="text-lg sm:text-xl font-bold font-ari pixel-text mb-4 text-center drop-shadow-lg">
-                    <span className="text-neon-cyan">You</span>{' '}
-                    <span className="text-yellow-200">Could</span>{' '}
-                    <span className="text-white">Be</span>{' '}
-                    <span className="text-green-200">Here</span> ✨
-                  </h3>
-                  <p className="text-gray-200 font-ari text-center text-sm mb-6 drop-shadow-md">
-                    <span className="text-cyan-100 font-medium">Join our community</span> and become a{' '}
-                    <span className="text-yellow-100 font-medium">core team member</span>! 🚀
-                  </p>
-                  <div className="mt-4">
-                    <a href="https://discord.gg/ujpUU9T3Vc" target="_blank" rel="noopener noreferrer">
-                      <button className="px-6 py-2 bg-gradient-to-r from-neon-cyan/20 to-neon-cyan/20 text-black font-bold text-sm font-ari pixel-border chrome-button hover:from-neon-cyan/30 hover:to-neon-cyan/30 transition-all duration-200">
-                        Join Us
-                      </button>
-                    </a>
+                  <div className="text-center mb-6">
+                    <h3 className="text-xl sm:text-2xl font-bold font-ari pixel-text mb-6 text-center drop-shadow-lg">
+                      <span className="text-neon-cyan glow-text">You</span>{' '}
+                      <span className="text-yellow-200 glow-text">Could</span>{' '}
+                      <span className="text-white glow-text">Be</span>{' '}
+                      <span className="text-green-200 glow-text">Here</span>{' '}
+                      <span className="text-4xl animate-pulse">✨</span>
+                    </h3>
+                  </div>
+                  <div className="space-y-4">
+                    <p className="text-gray-100 font-ari text-center text-base font-medium drop-shadow-md leading-relaxed">
+                      <span className="text-cyan-200 font-bold text-shadow-glow">Join our community</span>{' '}
+                      <span className="text-white">and become a</span>{' '}
+                      <span className="text-yellow-200 font-bold text-shadow-glow">core team member</span>
+                    </p>
+                    <div className="flex justify-center items-center space-x-2 text-2xl">
+                      <span className="animate-bounce delay-100">🚀</span>
+                      <span className="animate-bounce delay-200">💻</span>
+                      <span className="animate-bounce delay-300">🎨</span>
+                      <span className="animate-bounce delay-400">⚡</span>
+                    </div>
+                    <p className="text-purple-200 font-ari text-center text-sm italic drop-shadow-md">
+                      <span className="text-pink-300 font-semibold">Build</span>{' '}
+                      <span className="text-blue-300 font-semibold">Learn</span>{' '}
+                      <span className="text-green-300 font-semibold">Grow</span>{' '}
+                      <span className="text-yellow-300 font-semibold">Together</span>
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Center - Founder Card */}
-            <div className="card-flip-container">
+            {/* Second - Founder Card (Denis) - Desktop: Middle, Mobile: First */}
+            <div className="card-flip-container team-card-center">
               <div className="card-flip">
                 {/* Front - Profile */}
                 <div className="card-front">
@@ -612,8 +623,8 @@ function App() {
               </div>
             </div>
 
-            {/* Right Placeholder */}
-            <div className="card-flip-container">
+            {/* Third - Placeholder Card (Desktop: Right, Mobile: Third) */}
+            <div className="card-flip-container team-card-right">
               <div className="card-flip">
                 {/* Front - Question Mark Only */}
                 <div className="placeholder-front">
@@ -622,22 +633,33 @@ function App() {
                 
                 {/* Back - Join Message */}
                 <div className="placeholder-back">
-                  <h3 className="text-lg sm:text-xl font-bold font-ari pixel-text mb-4 text-center drop-shadow-lg">
-                    <span className="text-neon-cyan">You</span>{' '}
-                    <span className="text-yellow-200">Could</span>{' '}
-                    <span className="text-white">Be</span>{' '}
-                    <span className="text-green-200">Here</span> ✨
-                  </h3>
-                  <p className="text-gray-200 font-ari text-center text-sm mb-6 drop-shadow-md">
-                    <span className="text-cyan-100 font-medium">Join our community</span> and become a{' '}
-                    <span className="text-yellow-100 font-medium">core team member</span>! 🚀
-                  </p>
-                  <div className="mt-4">
-                    <a href="https://discord.gg/ujpUU9T3Vc" target="_blank" rel="noopener noreferrer">
-                      <button className="px-6 py-2 bg-gradient-to-r from-neon-cyan/20 to-neon-cyan/20 text-black font-bold text-sm font-ari pixel-border chrome-button hover:from-neon-cyan/30 hover:to-neon-cyan/30 transition-all duration-200">
-                        Join Us
-                      </button>
-                    </a>
+                  <div className="text-center mb-6">
+                    <h3 className="text-xl sm:text-2xl font-bold font-ari pixel-text mb-6 text-center drop-shadow-lg">
+                      <span className="text-neon-cyan glow-text">You</span>{' '}
+                      <span className="text-yellow-200 glow-text">Could</span>{' '}
+                      <span className="text-white glow-text">Be</span>{' '}
+                      <span className="text-green-200 glow-text">Here</span>{' '}
+                      <span className="text-4xl animate-pulse">✨</span>
+                    </h3>
+                  </div>
+                  <div className="space-y-4">
+                    <p className="text-gray-100 font-ari text-center text-base font-medium drop-shadow-md leading-relaxed">
+                      <span className="text-cyan-200 font-bold text-shadow-glow">Join our community</span>{' '}
+                      <span className="text-white">and become a</span>{' '}
+                      <span className="text-yellow-200 font-bold text-shadow-glow">core team member</span>
+                    </p>
+                    <div className="flex justify-center items-center space-x-2 text-2xl">
+                      <span className="animate-bounce delay-100">🚀</span>
+                      <span className="animate-bounce delay-200">💻</span>
+                      <span className="animate-bounce delay-300">🎨</span>
+                      <span className="animate-bounce delay-400">⚡</span>
+                    </div>
+                    <p className="text-purple-200 font-ari text-center text-sm italic drop-shadow-md">
+                      <span className="text-pink-300 font-semibold">Build</span>{' '}
+                      <span className="text-blue-300 font-semibold">Learn</span>{' '}
+                      <span className="text-green-300 font-semibold">Grow</span>{' '}
+                      <span className="text-yellow-300 font-semibold">Together</span>
+                    </p>
                   </div>
                 </div>
               </div>
